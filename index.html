@@ -10,23 +10,20 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:#1B3A6B;--navy-mid:#2d5499;--navy-light:#E8EEF8;
-  --orange:#C55A2B;--orange-light:#FAECE7;--orange-dark:#712B13;
+  --orange:#C55A2B;
   --green-bg:#EAF3DE;--green-text:#27500A;
   --red-bg:#FCEBEB;--red-text:#791F1F;
   --amber-bg:#FAEEDA;--amber-text:#633806;
-  --bg:#F4F6FA;--white:#fff;
-  --border:#E4E7EC;
+  --bg:#F4F6FA;--white:#fff;--border:#E4E7EC;
   --t1:#111827;--t2:#4B5563;--t3:#9CA3AF;
   --fs:'DM Sans',sans-serif;--fm:'DM Mono',monospace;
 }
 body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;min-height:100vh}
-
-/* Sidebar */
 .shell{display:flex;min-height:100vh}
-.sidebar{width:230px;background:var(--navy);display:flex;flex-direction:column;flex-shrink:0;position:sticky;top:0;height:100vh}
+.sidebar{width:220px;background:var(--navy);display:flex;flex-direction:column;flex-shrink:0;position:sticky;top:0;height:100vh}
 .sb-head{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sb-tag{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-.sb-name{font-size:16px;font-weight:500;color:#fff;margin-top:3px;line-height:1.3}
+.sb-name{font-size:16px;font-weight:500;color:#fff;margin-top:3px}
 .sb-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px}
 .sb-nav{padding:10px 0;flex:1}
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:rgba(255,255,255,.55);font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all .15s;user-select:none}
@@ -34,45 +31,33 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .nav-item.active{color:#fff;background:rgba(255,255,255,.1);border-left-color:var(--orange)}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6;flex-shrink:0}
 .sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08)}
-.sb-foot p{font-size:11px;color:rgba(255,255,255,.3);line-height:1.7}
-.sb-foot a{color:rgba(255,255,255,.45);text-decoration:none}
-.sb-foot a:hover{color:rgba(255,255,255,.7)}
-.refresh-btn{display:flex;align-items:center;gap:6px;margin-top:8px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.6);font-size:12px;padding:7px 10px;border-radius:7px;cursor:pointer;width:100%;font-family:var(--fs);transition:all .15s}
+.refresh-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.6);font-size:12px;padding:8px 10px;border-radius:7px;cursor:pointer;width:100%;font-family:var(--fs);transition:all .15s}
 .refresh-btn:hover{background:rgba(255,255,255,.14);color:#fff}
-.spin{display:inline-block;transition:transform .5s}
+.sb-foot p{font-size:11px;color:rgba(255,255,255,.3);line-height:1.7;margin-top:8px}
+.spin{display:inline-block}
 .spinning{animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Main */
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
 .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
 .tb-left{display:flex;align-items:center;gap:10px}
 .tb-title{font-size:15px;font-weight:500}
 .tb-badge{font-size:11px;background:var(--navy-light);color:var(--navy);padding:3px 9px;border-radius:20px;font-family:var(--fm);font-weight:500}
 .tb-status{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#9CA3AF;flex-shrink:0}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#D1D5DB;flex-shrink:0;transition:background .3s}
 .status-dot.live{background:#3B6D11}
 .status-dot.error{background:#A32D2D}
-
 .content{padding:24px 28px;flex:1}
 .page{display:none}.page.active{display:block}
-
-/* Sections */
 .sec{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin:1.75rem 0 .875rem}
 .sec:first-child{margin-top:0}
-
-/* Metric grid */
 .mg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .mg2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
-.mc{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px;transition:border-color .15s}
-.mc:hover{border-color:#c8cdd7}
+.mc{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
 .mc-accent{border-left:3px solid var(--orange)}
-.mc-lbl{font-size:11px;color:var(--t3);font-weight:500;margin-bottom:6px;letter-spacing:.02em}
+.mc-lbl{font-size:11px;color:var(--t3);font-weight:500;margin-bottom:6px}
 .mc-val{font-size:23px;font-weight:500;font-family:var(--fm);line-height:1}
 .mc-sub{font-size:11px;margin-top:5px;color:var(--t3)}
 .mc-sub.up{color:#A32D2D}.mc-sub.dn{color:#3B6D11}
-
-/* Cards */
 .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px}
 .chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
 .ct{font-size:13px;font-weight:500;margin-bottom:3px}
@@ -80,14 +65,10 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)}
 .ldot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
-
-/* Alert */
 .alert{padding:10px 14px;border-radius:8px;font-size:12px;margin-bottom:1.25rem;line-height:1.5}
 .a-warn{background:var(--amber-bg);color:var(--amber-text);border:1px solid #FAC775}
 .a-ok{background:var(--green-bg);color:var(--green-text);border:1px solid #C0DD97}
 .a-err{background:var(--red-bg);color:var(--red-text);border:1px solid #F7C1C1}
-
-/* Table */
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th{text-align:left;font-weight:500;color:var(--t2);padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
@@ -95,35 +76,12 @@ td{padding:8px 10px;border-bottom:1px solid #F0F2F5;white-space:nowrap}
 td:not(:first-child){text-align:right;font-family:var(--fm)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#FAFBFD}
-
-/* Badge */
 .badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500}
 .b-ok{background:var(--green-bg);color:var(--green-text)}
 .b-warn{background:var(--amber-bg);color:var(--amber-text)}
 .b-danger{background:var(--red-bg);color:var(--red-text)}
 .b-navy{background:var(--navy-light);color:var(--navy);font-family:var(--fm)}
-
-/* Setup page */
-.setup-card{max-width:640px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px}
-.setup-card h2{font-size:17px;font-weight:500;margin-bottom:6px}
-.setup-card p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:1rem}
-.step{display:flex;gap:14px;margin-bottom:20px}
-.step-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body h3{font-size:13px;font-weight:500;margin-bottom:4px}
-.step-body p{font-size:12px;color:var(--t2);margin-bottom:8px;line-height:1.6}
-.url-input{width:100%;padding:9px 12px;font-size:12px;font-family:var(--fm);border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--t1);outline:none;transition:border-color .15s}
-.url-input:focus{border-color:var(--navy-mid)}
-.save-btn{margin-top:12px;background:var(--navy);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fs)}
-.save-btn:hover{background:var(--navy-mid)}
-.code-block{background:#F4F6FA;border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--fm);font-size:11px;color:var(--t2);line-height:1.9;margin:8px 0}
-.hl{color:var(--navy);font-weight:500}
-
-/* Empty */
 .empty{text-align:center;padding:3rem 1rem;color:var(--t3);font-size:13px}
-.empty-icon{width:32px;height:32px;border-radius:50%;background:#F0F2F5;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-.empty-icon svg{width:16px;height:16px;stroke:#9CA3AF;fill:none;stroke-width:2}
-
-/* Responsive */
 @media(max-width:900px){
   .sidebar{width:200px}
   .mg,.mg2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -133,7 +91,7 @@ tr:hover td{background:#FAFBFD}
 @media(max-width:640px){
   .shell{flex-direction:column}
   .sidebar{width:100%;height:auto;position:relative}
-  .sb-nav{display:flex;flex-direction:row;padding:6px 12px;overflow-x:auto}
+  .sb-nav{display:flex;padding:6px 12px;overflow-x:auto}
   .nav-item{border-left:none;border-bottom:3px solid transparent;padding:8px 14px;white-space:nowrap;flex-shrink:0}
   .nav-item.active{border-left-color:transparent;border-bottom-color:var(--orange)}
   .sb-foot{display:none}
@@ -143,7 +101,6 @@ tr:hover td{background:#FAFBFD}
 </head>
 <body>
 <div class="shell">
-
   <div class="sidebar">
     <div class="sb-head">
       <div class="sb-tag">Ecommerce · COD</div>
@@ -153,13 +110,12 @@ tr:hover td{background:#FAFBFD}
     <nav class="sb-nav">
       <div class="nav-item active" onclick="showPage('dashboard')"><span class="nav-dot"></span>Dashboard</div>
       <div class="nav-item" onclick="showPage('tabel')"><span class="nav-dot"></span>Tabel data</div>
-      <div class="nav-item" onclick="showPage('setup')"><span class="nav-dot"></span>Setup</div>
     </nav>
     <div class="sb-foot">
       <button class="refresh-btn" onclick="fetchData()">
-        <span class="spin" id="spin-icon">↻</span> Refresh data
+        <span class="spin" id="spin-icon">↻</span> Refresh
       </button>
-      <p style="margin-top:10px">Auto-refresh setiap 5 menit.<br>Sumber: <a href="#" id="sheet-link" target="_blank">Google Sheets</a></p>
+      <p>Auto-refresh tiap 5 menit.</p>
     </div>
   </div>
 
@@ -171,16 +127,15 @@ tr:hover td{background:#FAFBFD}
       </div>
       <div class="tb-status">
         <span class="status-dot" id="status-dot"></span>
-        <span id="status-text">Belum ada data</span>
+        <span id="status-text">Memuat...</span>
       </div>
     </div>
 
     <div class="content">
 
-      <!-- DASHBOARD PAGE -->
+      <!-- DASHBOARD -->
       <div id="page-dashboard" class="page active">
         <div id="alert-area"></div>
-
         <div class="sec">Ringkasan minggu terakhir</div>
         <div class="mg">
           <div class="mc mc-accent">
@@ -237,7 +192,6 @@ tr:hover td{background:#FAFBFD}
           </div>
           <div style="position:relative;width:100%;height:220px"><canvas id="ch-vol"></canvas></div>
         </div>
-
         <div class="chart-grid">
           <div class="card">
             <div class="ct">Return rate (%)</div>
@@ -251,20 +205,15 @@ tr:hover td{background:#FAFBFD}
           <div class="card">
             <div class="ct">Rejection rate COD (%)</div>
             <div class="cs">Paket ditolak saat pengiriman</div>
-            <div class="legend">
-              <div class="leg"><span class="ldot" style="background:#C55A2B"></span>Rejection</div>
-            </div>
+            <div class="legend"><div class="leg"><span class="ldot" style="background:#C55A2B"></span>Rejection</div></div>
             <div style="position:relative;width:100%;height:190px"><canvas id="ch-rej"></canvas></div>
           </div>
         </div>
-
         <div class="chart-grid">
           <div class="card">
             <div class="ct">Conversion rate COD (%)</div>
             <div class="cs">Order yang berhasil diterima</div>
-            <div class="legend">
-              <div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div>
-            </div>
+            <div class="legend"><div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div></div>
             <div style="position:relative;width:100%;height:190px"><canvas id="ch-conv"></canvas></div>
           </div>
           <div class="card">
@@ -277,14 +226,10 @@ tr:hover td{background:#FAFBFD}
             <div style="position:relative;width:100%;height:190px"><canvas id="ch-aov"></canvas></div>
           </div>
         </div>
-
-        <div id="no-data" class="empty" style="display:none">
-          <div class="empty-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-          <p>Belum ada data. Buka tab <strong>Setup</strong> untuk menghubungkan Google Sheets.</p>
-        </div>
+        <div id="no-data" class="empty" style="display:none">Belum ada data di spreadsheet.</div>
       </div>
 
-      <!-- TABEL PAGE -->
+      <!-- TABEL -->
       <div id="page-tabel" class="page">
         <div class="sec">Semua data mingguan</div>
         <div class="card">
@@ -292,67 +237,15 @@ tr:hover td{background:#FAFBFD}
             <table>
               <thead>
                 <tr>
-                  <th>Minggu</th>
-                  <th>COD total</th>
-                  <th>COD sukses</th>
-                  <th>Return COD</th>
-                  <th>RR COD</th>
-                  <th>Rejection</th>
-                  <th>Rej rate</th>
-                  <th>Prepaid</th>
-                  <th>Return PP</th>
-                  <th>RR PP</th>
-                  <th>AOV COD</th>
-                  <th>AOV PP</th>
+                  <th>Minggu</th><th>COD total</th><th>Sukses</th><th>Return</th>
+                  <th>RR COD</th><th>Rejection</th><th>Rej%</th>
+                  <th>Prepaid</th><th>Ret PP</th><th>RR PP</th>
+                  <th>AOV COD</th><th>AOV PP</th>
                 </tr>
               </thead>
               <tbody id="tbl-body"></tbody>
             </table>
-            <div id="tbl-empty" class="empty" style="display:none">
-              <div class="empty-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
-              <p>Belum ada data untuk ditampilkan.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SETUP PAGE -->
-      <div id="page-setup" class="page">
-        <div class="sec">Konfigurasi sumber data</div>
-        <div class="setup-card">
-          <h2>Hubungkan Google Sheets</h2>
-          <p>Dashboard ini membaca data dari Google Sheets yang kamu publish. Ikuti langkah berikut sekali saja — setelah itu tinggal update sheet-nya.</p>
-
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-body">
-              <h3>Buat Google Sheets dengan kolom ini (baris 1 = header)</h3>
-              <div class="code-block">
-                <span class="hl">week</span> &nbsp;|&nbsp; <span class="hl">cod_total</span> &nbsp;|&nbsp; <span class="hl">cod_success</span> &nbsp;|&nbsp; <span class="hl">cod_return</span> &nbsp;|&nbsp; <span class="hl">cod_reject</span><br>
-                <span class="hl">pp_total</span> &nbsp;|&nbsp; <span class="hl">pp_return</span> &nbsp;|&nbsp; <span class="hl">aov_cod</span> &nbsp;|&nbsp; <span class="hl">aov_pp</span>
-              </div>
-              <p style="margin-top:6px">Contoh isi baris: <code style="font-family:var(--fm);font-size:11px">W14-Apr, 950, 810, 95, 45, 1800, 180, 185000, 230000</code></p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-body">
-              <h3>Publish sheet sebagai CSV</h3>
-              <p>Di Google Sheets: <strong>File → Share → Publish to web</strong><br>
-              Pilih sheet yang berisi data → pilih format <strong>CSV</strong> → klik <strong>Publish</strong> → copy URL-nya.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-body">
-              <h3>Paste URL di sini</h3>
-              <p>URL akan disimpan di browser ini. Setiap orang yang buka dashboard perlu paste URL sekali.</p>
-              <input type="text" class="url-input" id="sheets-url" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" />
-              <div id="setup-err" style="font-size:11px;color:#A32D2D;margin-top:6px;display:none"></div>
-              <button class="save-btn" onclick="saveURL()">Simpan & muat data</button>
-            </div>
+            <div id="tbl-empty" class="empty" style="display:none">Belum ada data.</div>
           </div>
         </div>
       </div>
@@ -362,267 +255,165 @@ tr:hover td{background:#FAFBFD}
 </div>
 
 <script>
-const STORAGE_KEY = 'cod_sheets_url';
+// ─── GANTI URL INI DENGAN URL GOOGLE SHEETS CSV KAMU ───────────────────────
+const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSP0G5lgb0M8GVLVNz6DhJNDyjQ4ZaJieL0c8N0ahJRTo-nPZ6yhbO-G-w67TK0CGczQWgaim4T2rO1/pub?output=csv';
+// ───────────────────────────────────────────────────────────────────────────
+
+const PROXY = 'https://api.allorigins.win/raw?url=';
 let allData = [];
-let charts = {};
-let refreshTimer = null;
+let charts  = {};
 
 function showPage(p) {
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
   document.getElementById('page-' + p).classList.add('active');
-  const idx = ['dashboard','tabel','setup'].indexOf(p);
-  document.querySelectorAll('.nav-item')[idx].classList.add('active');
+  document.querySelectorAll('.nav-item')[['dashboard','tabel'].indexOf(p)].classList.add('active');
   if (p === 'tabel') renderTable();
 }
 
-function getSheetsURL() {
-  return localStorage.getItem(STORAGE_KEY) || '';
+function fmt(n)    { const v=parseInt(n); return isNaN(v)?'—':v.toLocaleString('id-ID'); }
+function fmtPct(a,b){ if(!b||b==0)return'—'; return (a/b*100).toFixed(1)+'%'; }
+function fmtRp(n)  { const v=parseInt(n); if(!v||isNaN(v))return'—'; return v>=1000000?'Rp '+(v/1000000).toFixed(1)+'jt':'Rp '+Math.round(v/1000)+'rb'; }
+function fmtRpK(n) { const v=parseInt(n); return isNaN(v)?0:Math.round(v/1000); }
+function bdgCls(p) { if(p===null)return''; if(p>15)return'b-danger'; if(p>10)return'b-warn'; return'b-ok'; }
+
+function setStatus(msg, ok) {
+  document.getElementById('status-text').textContent = msg;
+  const d = document.getElementById('status-dot');
+  d.className = 'status-dot'+(ok===true?' live':ok===false?' error':'');
+}
+function showAlert(type, msg) {
+  const a = document.getElementById('alert-area');
+  if (!msg) { a.innerHTML=''; return; }
+  const cls = type==='warn'?'a-warn':type==='ok'?'a-ok':'a-err';
+  a.innerHTML = `<div class="alert ${cls}">${msg}</div>`;
 }
 
-function saveURL() {
-  const url = document.getElementById('sheets-url').value.trim();
-  const err = document.getElementById('setup-err');
-  if (!url || !url.includes('docs.google.com')) {
-    err.textContent = 'Masukkan URL Google Sheets yang valid.';
-    err.style.display = 'block';
-    return;
-  }
-  err.style.display = 'none';
-  localStorage.setItem(STORAGE_KEY, url);
-  document.getElementById('sheet-link').href = url;
-  fetchData();
-  showPage('dashboard');
-}
-
-function fmt(n) {
-  const v = parseInt(n);
-  return isNaN(v) ? '—' : v.toLocaleString('id-ID');
-}
-function fmtPct(a, b) {
-  if (!b || b == 0) return '—';
-  return (a / b * 100).toFixed(1) + '%';
-}
-function fmtRp(n) {
-  const v = parseInt(n);
-  if (!v || isNaN(v)) return '—';
-  if (v >= 1000000) return 'Rp ' + (v/1000000).toFixed(1) + 'jt';
-  return 'Rp ' + Math.round(v/1000) + 'rb';
-}
-function fmtRpK(n) {
-  const v = parseInt(n);
-  return isNaN(v) ? 0 : Math.round(v / 1000);
-}
-function badgeClass(pct) {
-  if (pct === null) return '';
-  if (pct > 15) return 'b-danger';
-  if (pct > 10) return 'b-warn';
-  return 'b-ok';
+function parseCSV(text) {
+  const lines = text.trim().split('\n').filter(l=>l.trim());
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/\r/g,''));
+  return lines.slice(1).map(line => {
+    const vals = line.split(',').map(v=>v.trim().replace(/\r/g,''));
+    const row = {};
+    headers.forEach((h,i) => row[h] = vals[i]||'0');
+    return row;
+  }).filter(r => r.week && r.week !== '0' && r.week !== '');
 }
 
 async function fetchData() {
-  const url = getSheetsURL();
-  if (!url) {
-    setStatus('Belum dikonfigurasi', false);
-    document.getElementById('no-data').style.display = 'block';
-    return;
-  }
-
   const icon = document.getElementById('spin-icon');
   icon.classList.add('spinning');
-  setStatus('Memuat data...', null);
-
-  // Coba langsung dulu, fallback ke proxy kalau CORS error
-  async function tryFetch(csvUrl) {
-    const res = await fetch(csvUrl, {cache: 'no-store'});
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    return await res.text();
-  }
-
-  const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
-
+  setStatus('Memuat...', null);
   try {
     let text;
     try {
-      text = await tryFetch(url);
-    } catch(e) {
-      // CORS fallback ke proxy
-      text = await tryFetch(proxyUrl);
+      const res = await fetch(SHEETS_URL, {cache:'no-store'});
+      if (!res.ok) throw new Error('direct fail');
+      text = await res.text();
+    } catch {
+      const res = await fetch(PROXY + encodeURIComponent(SHEETS_URL), {cache:'no-store'});
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      text = await res.text();
     }
     const parsed = parseCSV(text);
-    if (!parsed.length) throw new Error('Data kosong — pastikan sheet sudah ada isinya');
+    if (!parsed.length) throw new Error('Data kosong');
     allData = parsed;
     renderDashboard();
     renderTable();
     const now = new Date();
-    setStatus('Diperbarui ' + now.toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}), true);
-    showAlert(null, null);
+    setStatus('Diperbarui ' + now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}), true);
+    showAlert(null);
   } catch(e) {
     setStatus('Gagal memuat', false);
-    showAlert('error', 'Gagal memuat data: ' + e.message + '. Cek URL di tab Setup dan pastikan sheet sudah dipublish sebagai CSV.');
+    showAlert('error', 'Gagal memuat data dari Google Sheets: ' + e.message);
   } finally {
     icon.classList.remove('spinning');
   }
 }
 
-function parseCSV(text) {
-  const lines = text.trim().split('\n').filter(l => l.trim());
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/\r/g,''));
-  const results = [];
-  for (let i = 1; i < lines.length; i++) {
-    const vals = lines[i].split(',').map(v => v.trim().replace(/\r/g,''));
-    const row = {};
-    headers.forEach((h, idx) => { row[h] = vals[idx] || '0'; });
-    if (row.week && row.week !== '') results.push(row);
-  }
-  return results;
-}
-
-function setStatus(msg, ok) {
-  document.getElementById('status-text').textContent = msg;
-  const dot = document.getElementById('status-dot');
-  dot.className = 'status-dot' + (ok === true ? ' live' : ok === false ? ' error' : '');
-}
-
-function showAlert(type, msg) {
-  const area = document.getElementById('alert-area');
-  if (!msg) { area.innerHTML = ''; return; }
-  const cls = type === 'warn' ? 'a-warn' : type === 'ok' ? 'a-ok' : 'a-err';
-  area.innerHTML = `<div class="alert ${cls}">${msg}</div>`;
-}
-
 function renderDashboard() {
-  if (!allData.length) {
-    document.getElementById('no-data').style.display = 'block';
-    return;
-  }
-  document.getElementById('no-data').style.display = 'none';
+  if (!allData.length) { document.getElementById('no-data').style.display='block'; return; }
+  document.getElementById('no-data').style.display='none';
 
-  const last = allData[allData.length - 1];
-  const codTotal   = parseInt(last.cod_total)   || 0;
-  const codSuccess = parseInt(last.cod_success) || 0;
-  const codReturn  = parseInt(last.cod_return)  || 0;
-  const codReject  = parseInt(last.cod_reject)  || 0;
-  const ppTotal    = parseInt(last.pp_total)    || 0;
-  const ppReturn   = parseInt(last.pp_return)   || 0;
-  const aovCOD     = parseInt(last.aov_cod)     || 0;
-  const aovPP      = parseInt(last.aov_pp)      || 0;
+  const last=allData[allData.length-1];
+  const ct=parseInt(last.cod_total)||0, cs=parseInt(last.cod_success)||0;
+  const cr=parseInt(last.cod_return)||0, crej=parseInt(last.cod_reject)||0;
+  const pt=parseInt(last.pp_total)||0,  pr=parseInt(last.pp_return)||0;
+  const ac=parseInt(last.aov_cod)||0,   ap=parseInt(last.aov_pp)||0;
+  const rrC=ct>0?cr/ct*100:0, rrP=pt>0?pr/pt*100:0;
+  const diff=rrC-rrP;
 
-  const rrCOD  = codTotal > 0 ? codReturn  / codTotal  * 100 : 0;
-  const rrPP   = ppTotal  > 0 ? ppReturn   / ppTotal   * 100 : 0;
-  const rejR   = codTotal > 0 ? codReject  / codTotal  * 100 : 0;
-  const convR  = codTotal > 0 ? codSuccess / codTotal  * 100 : 0;
-  const diff   = rrCOD - rrPP;
+  document.getElementById('tb-week').textContent = last.week||'—';
+  document.getElementById('m-cod-total').textContent = fmt(ct);
+  document.getElementById('m-cod-total-sub').textContent = 'minggu '+(last.week||'—');
+  document.getElementById('m-rr-cod').textContent = fmtPct(cr,ct);
+  const rrSub=document.getElementById('m-rr-cod-sub');
+  rrSub.textContent=(diff>=0?'+':'')+diff.toFixed(1)+'% vs prepaid';
+  rrSub.className='mc-sub '+(diff>0?'up':'dn');
+  document.getElementById('m-rej').textContent=fmtPct(crej,ct);
+  document.getElementById('m-rej-sub').textContent=fmt(crej)+' paket ditolak';
+  document.getElementById('m-conv').textContent=fmtPct(cs,ct);
+  document.getElementById('m-conv-sub').textContent=fmt(cs)+' order sukses';
+  document.getElementById('m-pp-total').textContent=fmt(pt);
+  document.getElementById('m-pp-sub').textContent='minggu '+(last.week||'—');
+  document.getElementById('m-rr-pp').textContent=fmtPct(pr,pt);
+  document.getElementById('m-rr-pp-sub').textContent=fmt(pr)+' return';
+  document.getElementById('m-aov-cod').textContent=fmtRp(ac);
+  document.getElementById('m-aov-sub').textContent=ap?'vs '+fmtRp(ap)+' prepaid':'—';
+  document.getElementById('m-weeks').textContent=allData.length;
 
-  document.getElementById('tb-week').textContent = last.week || '—';
-  document.getElementById('m-cod-total').textContent = fmt(codTotal);
-  document.getElementById('m-cod-total-sub').textContent = 'minggu ' + (last.week || '—');
-  document.getElementById('m-rr-cod').textContent = fmtPct(codReturn, codTotal);
-  const rrSub = document.getElementById('m-rr-cod-sub');
-  rrSub.textContent = (diff >= 0 ? '+' : '') + diff.toFixed(1) + '% vs prepaid';
-  rrSub.className = 'mc-sub ' + (diff > 0 ? 'up' : 'dn');
-  document.getElementById('m-rej').textContent = fmtPct(codReject, codTotal);
-  document.getElementById('m-rej-sub').textContent = fmt(codReject) + ' paket ditolak';
-  document.getElementById('m-conv').textContent = fmtPct(codSuccess, codTotal);
-  document.getElementById('m-conv-sub').textContent = fmt(codSuccess) + ' order sukses';
-  document.getElementById('m-pp-total').textContent = fmt(ppTotal);
-  document.getElementById('m-pp-sub').textContent = 'minggu ' + (last.week || '—');
-  document.getElementById('m-rr-pp').textContent = fmtPct(ppReturn, ppTotal);
-  document.getElementById('m-rr-pp-sub').textContent = fmt(ppReturn) + ' return';
-  document.getElementById('m-aov-cod').textContent = fmtRp(aovCOD);
-  document.getElementById('m-aov-sub').textContent = aovPP ? 'vs ' + fmtRp(aovPP) + ' prepaid' : '—';
-  document.getElementById('m-weeks').textContent = allData.length;
+  if(rrC>15) showAlert('warn','Return rate COD minggu ini '+rrC.toFixed(1)+'% — di atas threshold 15%.');
+  else if(rrC>0) showAlert('ok','Return rate COD minggu ini '+rrC.toFixed(1)+'% — dalam batas normal.');
 
-  if (rrCOD > 15) {
-    showAlert('warn', 'Return rate COD minggu ini ' + rrCOD.toFixed(1) + '% — di atas threshold 15%. Periksa kategori produk atau wilayah pengiriman.');
-  } else if (rrCOD > 0) {
-    showAlert('ok', 'Return rate COD minggu ini ' + rrCOD.toFixed(1) + '% — dalam batas normal.');
-  }
+  const labels=allData.map(d=>d.week);
+  const base={responsive:true,maintainAspectRatio:false,animation:{duration:350},plugins:{legend:{display:false}},
+    scales:{x:{ticks:{font:{size:11},maxRotation:45,autoSkip:allData.length>10},grid:{display:false}},
+            y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}}};
+  const pctY={...base,scales:{x:base.scales.x,y:{ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.06)'}}}};
+  const rpY ={...base,scales:{x:base.scales.x,y:{ticks:{font:{size:11},callback:v=>'Rp'+v+'rb'},grid:{color:'rgba(0,0,0,.06)'}}}};
 
-  const labels   = allData.map(d => d.week);
-  const codVols  = allData.map(d => parseInt(d.cod_total)   || 0);
-  const ppVols   = allData.map(d => parseInt(d.pp_total)    || 0);
-  const rrCODs   = allData.map(d => { const t = parseInt(d.cod_total)||0, r = parseInt(d.cod_return)||0; return t ? parseFloat((r/t*100).toFixed(1)) : 0; });
-  const rrPPs    = allData.map(d => { const t = parseInt(d.pp_total)||0,  r = parseInt(d.pp_return)||0;  return t ? parseFloat((r/t*100).toFixed(1)) : 0; });
-  const rejRs    = allData.map(d => { const t = parseInt(d.cod_total)||0, r = parseInt(d.cod_reject)||0; return t ? parseFloat((r/t*100).toFixed(1)) : 0; });
-  const convRs   = allData.map(d => { const t = parseInt(d.cod_total)||0, s = parseInt(d.cod_success)||0; return t ? parseFloat((s/t*100).toFixed(1)) : 0; });
-  const aovCODs  = allData.map(d => fmtRpK(d.aov_cod));
-  const aovPPs   = allData.map(d => fmtRpK(d.aov_pp));
-
-  const base = { responsive:true, maintainAspectRatio:false, animation:{duration:350},
-    plugins:{ legend:{display:false}, tooltip:{callbacks:{}} },
-    scales:{ x:{ ticks:{font:{size:11},maxRotation:45,autoSkip:allData.length>8}, grid:{display:false} },
-             y:{ ticks:{font:{size:11}}, grid:{color:'rgba(0,0,0,.06)'} } }
+  const mk=(id,type,ds,opts)=>{
+    if(charts[id]) charts[id].destroy();
+    charts[id]=new Chart(document.getElementById(id),{type,data:{labels,datasets:ds},options:opts||base});
   };
+  const pv=d=>parseInt(d.pp_total)||0, cv=d=>parseInt(d.cod_total)||0;
+  const rrc=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
+  const rrp=d=>{const t=parseInt(d.pp_total)||0,r=parseInt(d.pp_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
+  const rj=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_reject)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
+  const co=d=>{const t=parseInt(d.cod_total)||0,s=parseInt(d.cod_success)||0;return t?parseFloat((s/t*100).toFixed(1)):0;};
 
-  const mk = (id, type, datasets, extraOpts) => {
-    if (charts[id]) charts[id].destroy();
-    charts[id] = new Chart(document.getElementById(id), { type, data:{ labels, datasets }, options:{ ...base, ...extraOpts } });
-  };
-
-  mk('ch-vol', 'bar', [
-    { label:'Prepaid', data:ppVols,  backgroundColor:'#1B3A6B' },
-    { label:'COD',     data:codVols, backgroundColor:'#C55A2B' }
-  ]);
-  mk('ch-rr', 'line', [
-    { label:'COD',     data:rrCODs, borderColor:'#C55A2B', backgroundColor:'rgba(197,90,43,.08)', tension:.4, fill:true, pointRadius:4 },
-    { label:'Prepaid', data:rrPPs,  borderColor:'#1B3A6B', backgroundColor:'rgba(27,58,107,.06)',  tension:.4, fill:true, pointRadius:4 }
-  ], { scales:{ x:base.scales.x, y:{ ...base.scales.y, ticks:{ font:{size:11}, callback:v=>v+'%' } } } });
-  mk('ch-rej', 'line', [
-    { label:'Rejection', data:rejRs, borderColor:'#C55A2B', backgroundColor:'rgba(197,90,43,.08)', tension:.4, fill:true, pointRadius:4 }
-  ], { scales:{ x:base.scales.x, y:{ ...base.scales.y, ticks:{ font:{size:11}, callback:v=>v+'%' } } } });
-  mk('ch-conv', 'line', [
-    { label:'Conversion', data:convRs, borderColor:'#3B6D11', backgroundColor:'rgba(59,109,17,.08)', tension:.4, fill:true, pointRadius:4 }
-  ], { scales:{ x:base.scales.x, y:{ ...base.scales.y, ticks:{ font:{size:11}, callback:v=>v+'%' } } } });
-  mk('ch-aov', 'bar', [
-    { label:'COD',     data:aovCODs, backgroundColor:'#C55A2B' },
-    { label:'Prepaid', data:aovPPs,  backgroundColor:'#1B3A6B' }
-  ], { scales:{ x:base.scales.x, y:{ ...base.scales.y, ticks:{ font:{size:11}, callback:v=>'Rp'+v+'rb' } } } });
+  mk('ch-vol','bar',[{label:'Prepaid',data:allData.map(pv),backgroundColor:'#1B3A6B'},{label:'COD',data:allData.map(cv),backgroundColor:'#C55A2B'}]);
+  mk('ch-rr','line',[{label:'COD',data:allData.map(rrc),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4},{label:'Prepaid',data:allData.map(rrp),borderColor:'#1B3A6B',backgroundColor:'rgba(27,58,107,.06)',tension:.4,fill:true,pointRadius:4}],pctY);
+  mk('ch-rej','line',[{label:'Rej',data:allData.map(rj),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4}],pctY);
+  mk('ch-conv','line',[{label:'Conv',data:allData.map(co),borderColor:'#3B6D11',backgroundColor:'rgba(59,109,17,.08)',tension:.4,fill:true,pointRadius:4}],pctY);
+  mk('ch-aov','bar',[{label:'COD',data:allData.map(d=>fmtRpK(d.aov_cod)),backgroundColor:'#C55A2B'},{label:'Prepaid',data:allData.map(d=>fmtRpK(d.aov_pp)),backgroundColor:'#1B3A6B'}],rpY);
 }
 
 function renderTable() {
-  const tbody = document.getElementById('tbl-body');
-  const empty = document.getElementById('tbl-empty');
-  tbody.innerHTML = '';
-  if (!allData.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  allData.slice().reverse().forEach(d => {
-    const ct = parseInt(d.cod_total)||0, cr = parseInt(d.cod_return)||0, crej = parseInt(d.cod_reject)||0;
-    const pt = parseInt(d.pp_total)||0, pr = parseInt(d.pp_return)||0;
-    const rrC = ct > 0 ? cr/ct*100 : null;
-    const rejR = ct > 0 ? crej/ct*100 : null;
-    const rrP = pt > 0 ? pr/pt*100 : null;
-    tbody.innerHTML += `<tr>
+  const tbody=document.getElementById('tbl-body');
+  const empty=document.getElementById('tbl-empty');
+  tbody.innerHTML='';
+  if(!allData.length){empty.style.display='block';return;}
+  empty.style.display='none';
+  allData.slice().reverse().forEach(d=>{
+    const ct=parseInt(d.cod_total)||0,cr=parseInt(d.cod_return)||0,crej=parseInt(d.cod_reject)||0;
+    const pt=parseInt(d.pp_total)||0,pr=parseInt(d.pp_return)||0;
+    const rrC=ct>0?cr/ct*100:null,rejR=ct>0?crej/ct*100:null,rrP=pt>0?pr/pt*100:null;
+    tbody.innerHTML+=`<tr>
       <td><span class="badge b-navy">${d.week}</span></td>
-      <td>${fmt(ct)}</td>
-      <td>${fmt(d.cod_success)}</td>
-      <td>${fmt(cr)}</td>
-      <td><span class="badge ${badgeClass(rrC)}">${rrC !== null ? rrC.toFixed(1)+'%' : '—'}</span></td>
-      <td>${fmt(crej)}</td>
-      <td>${rejR !== null ? rejR.toFixed(1)+'%' : '—'}</td>
-      <td>${fmt(pt)}</td>
-      <td>${fmt(pr)}</td>
-      <td>${rrP !== null ? rrP.toFixed(1)+'%' : '—'}</td>
-      <td>${fmtRp(d.aov_cod)}</td>
-      <td>${fmtRp(d.aov_pp)}</td>
+      <td>${fmt(ct)}</td><td>${fmt(d.cod_success)}</td><td>${fmt(cr)}</td>
+      <td><span class="badge ${bdgCls(rrC)}">${rrC!==null?rrC.toFixed(1)+'%':'—'}</span></td>
+      <td>${fmt(crej)}</td><td>${rejR!==null?rejR.toFixed(1)+'%':'—'}</td>
+      <td>${fmt(pt)}</td><td>${fmt(pr)}</td>
+      <td>${rrP!==null?rrP.toFixed(1)+'%':'—'}</td>
+      <td>${fmtRp(d.aov_cod)}</td><td>${fmtRp(d.aov_pp)}</td>
     </tr>`;
   });
 }
 
-// Init
-const savedURL = getSheetsURL();
-if (savedURL) {
-  document.getElementById('sheets-url').value = savedURL;
-  document.getElementById('sheet-link').href = savedURL;
-  fetchData();
-} else {
-  document.getElementById('no-data').style.display = 'block';
-  setStatus('Belum dikonfigurasi', false);
-}
-
-// Auto refresh every 5 minutes
-refreshTimer = setInterval(fetchData, 5 * 60 * 1000);
+fetchData();
+setInterval(fetchData, 5*60*1000);
 </script>
 </body>
 </html>
