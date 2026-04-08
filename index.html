@@ -41,7 +41,6 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
 .tb-left{display:flex;align-items:center;gap:10px}
 .tb-title{font-size:15px;font-weight:500}
-.tb-badge{font-size:11px;background:var(--navy-light);color:var(--navy);padding:3px 9px;border-radius:20px;font-family:var(--fm);font-weight:500}
 .tb-status{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px}
 .status-dot{width:7px;height:7px;border-radius:50%;background:#D1D5DB;flex-shrink:0;transition:background .3s}
 .status-dot.live{background:#3B6D11}
@@ -50,6 +49,44 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .page{display:none}.page.active{display:block}
 .sec{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin:1.75rem 0 .875rem}
 .sec:first-child{margin-top:0}
+
+/* Mode switcher */
+.mode-bar{display:flex;gap:8px;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap}
+.mode-btn{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--t2);font-family:var(--fs);transition:all .15s}
+.mode-btn:hover{border-color:#c8cdd7;color:var(--t1)}
+.mode-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.mode-panel{display:none}.mode-panel.active{display:block}
+
+/* Week selector */
+.week-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.week-controls label{font-size:12px;color:var(--t2);font-weight:500}
+.week-select{padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:var(--fm);background:var(--white);color:var(--t1);cursor:pointer;outline:none}
+.week-select:focus{border-color:var(--navy-mid)}
+.vs-label{font-size:12px;color:var(--t3);font-weight:500;padding:0 4px}
+
+/* Compare cards */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem}
+.cmp-col{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px}
+.cmp-col.col-a{border-top:3px solid var(--orange)}
+.cmp-col.col-b{border-top:3px solid var(--navy)}
+.cmp-header{font-size:12px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cmp-week-tag{font-family:var(--fm);font-size:11px;padding:2px 8px;border-radius:99px}
+.tag-a{background:var(--orange-light,#FAECE7);color:#712B13}
+.tag-b{background:var(--navy-light);color:var(--navy)}
+.cmp-rows{}
+.cmp-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:0.5px solid #F0F2F5;font-size:12px}
+.cmp-row:last-child{border-bottom:none}
+.cmp-lbl{color:var(--t3)}
+.cmp-val{font-family:var(--fm);font-weight:500;color:var(--t1)}
+.cmp-diff{font-size:11px;padding:1px 6px;border-radius:99px;font-family:var(--fm)}
+.diff-up{background:var(--red-bg);color:var(--red-text)}
+.diff-dn{background:var(--green-bg);color:var(--green-text)}
+.diff-neu{background:#F3F4F6;color:var(--t3)}
+
+/* Compare charts */
+.cmp-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:0}
+
+/* Metric cards */
 .mg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .mg2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
 .mc{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
@@ -85,7 +122,7 @@ tr:hover td{background:#FAFBFD}
 @media(max-width:900px){
   .sidebar{width:200px}
   .mg,.mg2{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .chart-grid{grid-template-columns:1fr}
+  .chart-grid,.cmp-chart-grid,.compare-grid{grid-template-columns:1fr}
   .content{padding:16px}
 }
 @media(max-width:640px){
@@ -123,7 +160,6 @@ tr:hover td{background:#FAFBFD}
     <div class="topbar">
       <div class="tb-left">
         <span class="tb-title">Weekly COD Report</span>
-        <span class="tb-badge" id="tb-week">—</span>
       </div>
       <div class="tb-status">
         <span class="status-dot" id="status-dot"></span>
@@ -135,97 +171,205 @@ tr:hover td{background:#FAFBFD}
 
       <!-- DASHBOARD -->
       <div id="page-dashboard" class="page active">
-        <div id="alert-area"></div>
-        <div class="sec">Ringkasan minggu terakhir</div>
-        <div class="mg">
-          <div class="mc mc-accent">
-            <div class="mc-lbl">Total order COD</div>
-            <div class="mc-val" id="m-cod-total">—</div>
-            <div class="mc-sub" id="m-cod-total-sub">—</div>
-          </div>
-          <div class="mc">
-            <div class="mc-lbl">Return rate COD</div>
-            <div class="mc-val" id="m-rr-cod">—</div>
-            <div class="mc-sub" id="m-rr-cod-sub">—</div>
-          </div>
-          <div class="mc">
-            <div class="mc-lbl">Rejection rate</div>
-            <div class="mc-val" id="m-rej">—</div>
-            <div class="mc-sub" id="m-rej-sub">—</div>
-          </div>
-          <div class="mc">
-            <div class="mc-lbl">Conversion rate</div>
-            <div class="mc-val" id="m-conv">—</div>
-            <div class="mc-sub" id="m-conv-sub">—</div>
-          </div>
+
+        <!-- Mode switcher -->
+        <div class="mode-bar">
+          <button class="mode-btn active" onclick="setMode('overview')">Semua minggu</button>
+          <button class="mode-btn" onclick="setMode('single')">Pilih minggu</button>
+          <button class="mode-btn" onclick="setMode('compare')">Bandingkan</button>
         </div>
-        <div class="mg2">
-          <div class="mc">
-            <div class="mc-lbl">Order prepaid</div>
-            <div class="mc-val" id="m-pp-total">—</div>
-            <div class="mc-sub" id="m-pp-sub">—</div>
+
+        <!-- ── MODE: OVERVIEW (semua minggu) ── -->
+        <div id="mode-overview" class="mode-panel active">
+          <div id="alert-area-ov"></div>
+          <div class="sec">Ringkasan minggu terakhir</div>
+          <div class="mg">
+            <div class="mc mc-accent">
+              <div class="mc-lbl">Total order COD</div>
+              <div class="mc-val" id="ov-cod-total">—</div>
+              <div class="mc-sub" id="ov-cod-total-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Return rate COD</div>
+              <div class="mc-val" id="ov-rr-cod">—</div>
+              <div class="mc-sub" id="ov-rr-cod-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Rejection rate</div>
+              <div class="mc-val" id="ov-rej">—</div>
+              <div class="mc-sub" id="ov-rej-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Conversion rate</div>
+              <div class="mc-val" id="ov-conv">—</div>
+              <div class="mc-sub" id="ov-conv-sub">—</div>
+            </div>
           </div>
-          <div class="mc">
-            <div class="mc-lbl">Return rate prepaid</div>
-            <div class="mc-val" id="m-rr-pp">—</div>
-            <div class="mc-sub" id="m-rr-pp-sub">—</div>
+          <div class="mg2">
+            <div class="mc">
+              <div class="mc-lbl">Order prepaid</div>
+              <div class="mc-val" id="ov-pp-total">—</div>
+              <div class="mc-sub" id="ov-pp-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Return rate prepaid</div>
+              <div class="mc-val" id="ov-rr-pp">—</div>
+              <div class="mc-sub" id="ov-rr-pp-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">AOV COD</div>
+              <div class="mc-val" id="ov-aov-cod">—</div>
+              <div class="mc-sub" id="ov-aov-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Minggu direkam</div>
+              <div class="mc-val" id="ov-weeks">—</div>
+              <div class="mc-sub">total entri</div>
+            </div>
           </div>
-          <div class="mc">
-            <div class="mc-lbl">AOV COD</div>
-            <div class="mc-val" id="m-aov-cod">—</div>
-            <div class="mc-sub" id="m-aov-sub">—</div>
+          <div class="sec">Tren mingguan</div>
+          <div class="card">
+            <div class="ct">Volume order COD vs Prepaid</div>
+            <div class="cs">Jumlah order per minggu</div>
+            <div class="legend">
+              <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
+              <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
+            </div>
+            <div style="position:relative;width:100%;height:220px"><canvas id="ov-ch-vol"></canvas></div>
           </div>
-          <div class="mc">
-            <div class="mc-lbl">Minggu direkam</div>
-            <div class="mc-val" id="m-weeks">—</div>
-            <div class="mc-sub">total entri</div>
+          <div class="chart-grid">
+            <div class="card">
+              <div class="ct">Return rate (%)</div>
+              <div class="cs">COD vs Prepaid per minggu</div>
+              <div class="legend">
+                <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
+                <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
+              </div>
+              <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-rr"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="ct">Rejection rate COD (%)</div>
+              <div class="cs">Paket ditolak saat pengiriman</div>
+              <div class="legend"><div class="leg"><span class="ldot" style="background:#C55A2B"></span>Rejection</div></div>
+              <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-rej"></canvas></div>
+            </div>
+          </div>
+          <div class="chart-grid">
+            <div class="card">
+              <div class="ct">Conversion rate COD (%)</div>
+              <div class="cs">Order yang berhasil diterima</div>
+              <div class="legend"><div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div></div>
+              <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-conv"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="ct">AOV perbandingan (Rp ribu)</div>
+              <div class="cs">Average order value COD vs Prepaid</div>
+              <div class="legend">
+                <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
+                <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
+              </div>
+              <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-aov"></canvas></div>
+            </div>
           </div>
         </div>
 
-        <div class="sec">Tren mingguan</div>
-        <div class="card">
-          <div class="ct">Volume order COD vs Prepaid</div>
-          <div class="cs">Jumlah order per minggu</div>
-          <div class="legend">
-            <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
-            <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
+        <!-- ── MODE: SINGLE (pilih 1 minggu) ── -->
+        <div id="mode-single" class="mode-panel">
+          <div class="week-controls">
+            <label>Pilih minggu:</label>
+            <select class="week-select" id="sel-single" onchange="renderSingle()"></select>
           </div>
-          <div style="position:relative;width:100%;height:220px"><canvas id="ch-vol"></canvas></div>
-        </div>
-        <div class="chart-grid">
-          <div class="card">
-            <div class="ct">Return rate (%)</div>
-            <div class="cs">COD vs Prepaid per minggu</div>
-            <div class="legend">
-              <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
-              <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
+          <div id="alert-area-sg"></div>
+          <div class="mg">
+            <div class="mc mc-accent">
+              <div class="mc-lbl">Total order COD</div>
+              <div class="mc-val" id="sg-cod-total">—</div>
+              <div class="mc-sub" id="sg-cod-total-sub">—</div>
             </div>
-            <div style="position:relative;width:100%;height:190px"><canvas id="ch-rr"></canvas></div>
-          </div>
-          <div class="card">
-            <div class="ct">Rejection rate COD (%)</div>
-            <div class="cs">Paket ditolak saat pengiriman</div>
-            <div class="legend"><div class="leg"><span class="ldot" style="background:#C55A2B"></span>Rejection</div></div>
-            <div style="position:relative;width:100%;height:190px"><canvas id="ch-rej"></canvas></div>
-          </div>
-        </div>
-        <div class="chart-grid">
-          <div class="card">
-            <div class="ct">Conversion rate COD (%)</div>
-            <div class="cs">Order yang berhasil diterima</div>
-            <div class="legend"><div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div></div>
-            <div style="position:relative;width:100%;height:190px"><canvas id="ch-conv"></canvas></div>
-          </div>
-          <div class="card">
-            <div class="ct">AOV perbandingan (Rp ribu)</div>
-            <div class="cs">Average order value COD vs Prepaid</div>
-            <div class="legend">
-              <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
-              <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
+            <div class="mc">
+              <div class="mc-lbl">Return rate COD</div>
+              <div class="mc-val" id="sg-rr-cod">—</div>
+              <div class="mc-sub" id="sg-rr-cod-sub">—</div>
             </div>
-            <div style="position:relative;width:100%;height:190px"><canvas id="ch-aov"></canvas></div>
+            <div class="mc">
+              <div class="mc-lbl">Rejection rate</div>
+              <div class="mc-val" id="sg-rej">—</div>
+              <div class="mc-sub" id="sg-rej-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Conversion rate</div>
+              <div class="mc-val" id="sg-conv">—</div>
+              <div class="mc-sub" id="sg-conv-sub">—</div>
+            </div>
+          </div>
+          <div class="mg2">
+            <div class="mc">
+              <div class="mc-lbl">Order prepaid</div>
+              <div class="mc-val" id="sg-pp-total">—</div>
+              <div class="mc-sub" id="sg-pp-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">Return rate prepaid</div>
+              <div class="mc-val" id="sg-rr-pp">—</div>
+              <div class="mc-sub" id="sg-rr-pp-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">AOV COD</div>
+              <div class="mc-val" id="sg-aov-cod">—</div>
+              <div class="mc-sub" id="sg-aov-sub">—</div>
+            </div>
+            <div class="mc">
+              <div class="mc-lbl">AOV Prepaid</div>
+              <div class="mc-val" id="sg-aov-pp">—</div>
+              <div class="mc-sub">avg order value</div>
+            </div>
           </div>
         </div>
+
+        <!-- ── MODE: COMPARE (bandingkan 2 minggu) ── -->
+        <div id="mode-compare" class="mode-panel">
+          <div class="week-controls">
+            <label>Minggu A:</label>
+            <select class="week-select" id="sel-cmp-a" onchange="renderCompare()"></select>
+            <span class="vs-label">vs</span>
+            <label>Minggu B:</label>
+            <select class="week-select" id="sel-cmp-b" onchange="renderCompare()"></select>
+          </div>
+          <div class="compare-grid">
+            <div class="cmp-col col-a">
+              <div class="cmp-header"><span class="cmp-week-tag tag-a" id="cmp-tag-a">—</span>Minggu A</div>
+              <div class="cmp-rows" id="cmp-rows-a"></div>
+            </div>
+            <div class="cmp-col col-b">
+              <div class="cmp-header"><span class="cmp-week-tag tag-b" id="cmp-tag-b">—</span>Minggu B</div>
+              <div class="cmp-rows" id="cmp-rows-b"></div>
+            </div>
+          </div>
+          <div class="sec">Perbandingan visual</div>
+          <div class="cmp-chart-grid">
+            <div class="card">
+              <div class="ct">Volume order</div>
+              <div class="cs">COD dan Prepaid</div>
+              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-vol"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="ct">Return & rejection rate (%)</div>
+              <div class="cs">COD performance</div>
+              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-rate"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="ct">Conversion rate (%)</div>
+              <div class="cs">Order berhasil diterima</div>
+              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-conv"></canvas></div>
+            </div>
+            <div class="card">
+              <div class="ct">AOV (Rp ribu)</div>
+              <div class="cs">Average order value</div>
+              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-aov"></canvas></div>
+            </div>
+          </div>
+        </div>
+
         <div id="no-data" class="empty" style="display:none">Belum ada data di spreadsheet.</div>
       </div>
 
@@ -255,50 +399,68 @@ tr:hover td{background:#FAFBFD}
 </div>
 
 <script>
-// ─── GANTI URL INI DENGAN URL GOOGLE SHEETS CSV KAMU ───────────────────────
 const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSP0G5lgb0M8GVLVNz6DhJNDyjQ4ZaJieL0c8N0ahJRTo-nPZ6yhbO-G-w67TK0CGczQWgaim4T2rO1/pub?output=csv';
-// ───────────────────────────────────────────────────────────────────────────
-
 const PROXY = 'https://api.allorigins.win/raw?url=';
 let allData = [];
 let charts  = {};
+let currentMode = 'overview';
 
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
-  document.querySelectorAll('.nav-item')[['dashboard','tabel'].indexOf(p)].classList.add('active');
-  if (p === 'tabel') renderTable();
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function fmt(n)     { const v=parseInt(n); return isNaN(v)?'—':v.toLocaleString('id-ID'); }
+function fmtPct(a,b){ if(!b||b==0)return'—'; return (a/b*100).toFixed(1)+'%'; }
+function fmtRp(n)   { const v=parseInt(n); if(!v||isNaN(v))return'—'; return v>=1000000?'Rp '+(v/1000000).toFixed(1)+'jt':'Rp '+Math.round(v/1000)+'rb'; }
+function fmtRpK(n)  { const v=parseInt(n); return isNaN(v)?0:Math.round(v/1000); }
+function pct(a,b)   { return b>0?a/b*100:0; }
+function bdgCls(p)  { if(p===null)return''; if(p>15)return'b-danger'; if(p>10)return'b-warn'; return'b-ok'; }
+function mkMetrics(d) {
+  const ct=parseInt(d.cod_total)||0, cs=parseInt(d.cod_success)||0;
+  const cr=parseInt(d.cod_return)||0, crej=parseInt(d.cod_reject)||0;
+  const pt=parseInt(d.pp_total)||0,  pr=parseInt(d.pp_return)||0;
+  const ac=parseInt(d.aov_cod)||0,   ap=parseInt(d.aov_pp)||0;
+  return {ct,cs,cr,crej,pt,pr,ac,ap,
+    rrC:pct(cr,ct), rrP:pct(pr,pt),
+    rejR:pct(crej,ct), convR:pct(cs,ct)};
 }
 
-function fmt(n)    { const v=parseInt(n); return isNaN(v)?'—':v.toLocaleString('id-ID'); }
-function fmtPct(a,b){ if(!b||b==0)return'—'; return (a/b*100).toFixed(1)+'%'; }
-function fmtRp(n)  { const v=parseInt(n); if(!v||isNaN(v))return'—'; return v>=1000000?'Rp '+(v/1000000).toFixed(1)+'jt':'Rp '+Math.round(v/1000)+'rb'; }
-function fmtRpK(n) { const v=parseInt(n); return isNaN(v)?0:Math.round(v/1000); }
-function bdgCls(p) { if(p===null)return''; if(p>15)return'b-danger'; if(p>10)return'b-warn'; return'b-ok'; }
+// ── Navigation ────────────────────────────────────────────────────────────────
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-item')[['dashboard','tabel'].indexOf(p)].classList.add('active');
+  if(p==='tabel') renderTable();
+}
+
+function setMode(m) {
+  currentMode = m;
+  document.querySelectorAll('.mode-btn').forEach((b,i)=>{
+    b.classList.toggle('active', ['overview','single','compare'][i]===m);
+  });
+  document.querySelectorAll('.mode-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('mode-'+m).classList.add('active');
+  if(!allData.length) return;
+  if(m==='overview') renderOverview();
+  else if(m==='single') renderSingle();
+  else if(m==='compare') renderCompare();
+}
 
 function setStatus(msg, ok) {
   document.getElementById('status-text').textContent = msg;
   const d = document.getElementById('status-dot');
   d.className = 'status-dot'+(ok===true?' live':ok===false?' error':'');
 }
-function showAlert(type, msg) {
-  const a = document.getElementById('alert-area');
-  if (!msg) { a.innerHTML=''; return; }
-  const cls = type==='warn'?'a-warn':type==='ok'?'a-ok':'a-err';
-  a.innerHTML = `<div class="alert ${cls}">${msg}</div>`;
-}
 
+// ── Fetch ─────────────────────────────────────────────────────────────────────
 function parseCSV(text) {
   const lines = text.trim().split('\n').filter(l=>l.trim());
-  if (lines.length < 2) return [];
+  if(lines.length<2) return [];
   const headers = lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/\r/g,''));
-  return lines.slice(1).map(line => {
-    const vals = line.split(',').map(v=>v.trim().replace(/\r/g,''));
-    const row = {};
-    headers.forEach((h,i) => row[h] = vals[i]||'0');
+  return lines.slice(1).map(line=>{
+    const vals=line.split(',').map(v=>v.trim().replace(/\r/g,''));
+    const row={};
+    headers.forEach((h,i)=>row[h]=vals[i]||'0');
     return row;
-  }).filter(r => r.week && r.week !== '0' && r.week !== '');
+  }).filter(r=>r.week&&r.week!=='0'&&r.week!=='');
 }
 
 async function fetchData() {
@@ -308,88 +470,201 @@ async function fetchData() {
   try {
     let text;
     try {
-      const res = await fetch(SHEETS_URL, {cache:'no-store'});
-      if (!res.ok) throw new Error('direct fail');
+      const res = await fetch(SHEETS_URL,{cache:'no-store'});
+      if(!res.ok) throw new Error('direct fail');
       text = await res.text();
     } catch {
-      const res = await fetch(PROXY + encodeURIComponent(SHEETS_URL), {cache:'no-store'});
-      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const res = await fetch(PROXY+encodeURIComponent(SHEETS_URL),{cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
       text = await res.text();
     }
     const parsed = parseCSV(text);
-    if (!parsed.length) throw new Error('Data kosong');
+    if(!parsed.length) throw new Error('Data kosong');
     allData = parsed;
-    renderDashboard();
+    populateSelects();
+    if(currentMode==='overview') renderOverview();
+    else if(currentMode==='single') renderSingle();
+    else renderCompare();
     renderTable();
-    const now = new Date();
-    setStatus('Diperbarui ' + now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}), true);
-    showAlert(null);
+    setStatus('Diperbarui '+new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}), true);
   } catch(e) {
     setStatus('Gagal memuat', false);
-    showAlert('error', 'Gagal memuat data dari Google Sheets: ' + e.message);
+    document.getElementById('alert-area-ov').innerHTML=`<div class="alert a-err">Gagal memuat: ${e.message}</div>`;
   } finally {
     icon.classList.remove('spinning');
   }
 }
 
-function renderDashboard() {
-  if (!allData.length) { document.getElementById('no-data').style.display='block'; return; }
-  document.getElementById('no-data').style.display='none';
-
-  const last=allData[allData.length-1];
-  const ct=parseInt(last.cod_total)||0, cs=parseInt(last.cod_success)||0;
-  const cr=parseInt(last.cod_return)||0, crej=parseInt(last.cod_reject)||0;
-  const pt=parseInt(last.pp_total)||0,  pr=parseInt(last.pp_return)||0;
-  const ac=parseInt(last.aov_cod)||0,   ap=parseInt(last.aov_pp)||0;
-  const rrC=ct>0?cr/ct*100:0, rrP=pt>0?pr/pt*100:0;
-  const diff=rrC-rrP;
-
-  document.getElementById('tb-week').textContent = last.week||'—';
-  document.getElementById('m-cod-total').textContent = fmt(ct);
-  document.getElementById('m-cod-total-sub').textContent = 'minggu '+(last.week||'—');
-  document.getElementById('m-rr-cod').textContent = fmtPct(cr,ct);
-  const rrSub=document.getElementById('m-rr-cod-sub');
-  rrSub.textContent=(diff>=0?'+':'')+diff.toFixed(1)+'% vs prepaid';
-  rrSub.className='mc-sub '+(diff>0?'up':'dn');
-  document.getElementById('m-rej').textContent=fmtPct(crej,ct);
-  document.getElementById('m-rej-sub').textContent=fmt(crej)+' paket ditolak';
-  document.getElementById('m-conv').textContent=fmtPct(cs,ct);
-  document.getElementById('m-conv-sub').textContent=fmt(cs)+' order sukses';
-  document.getElementById('m-pp-total').textContent=fmt(pt);
-  document.getElementById('m-pp-sub').textContent='minggu '+(last.week||'—');
-  document.getElementById('m-rr-pp').textContent=fmtPct(pr,pt);
-  document.getElementById('m-rr-pp-sub').textContent=fmt(pr)+' return';
-  document.getElementById('m-aov-cod').textContent=fmtRp(ac);
-  document.getElementById('m-aov-sub').textContent=ap?'vs '+fmtRp(ap)+' prepaid':'—';
-  document.getElementById('m-weeks').textContent=allData.length;
-
-  if(rrC>15) showAlert('warn','Return rate COD minggu ini '+rrC.toFixed(1)+'% — di atas threshold 15%.');
-  else if(rrC>0) showAlert('ok','Return rate COD minggu ini '+rrC.toFixed(1)+'% — dalam batas normal.');
-
-  const labels=allData.map(d=>d.week);
-  const base={responsive:true,maintainAspectRatio:false,animation:{duration:350},plugins:{legend:{display:false}},
-    scales:{x:{ticks:{font:{size:11},maxRotation:45,autoSkip:allData.length>10},grid:{display:false}},
-            y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}}};
-  const pctY={...base,scales:{x:base.scales.x,y:{ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.06)'}}}};
-  const rpY ={...base,scales:{x:base.scales.x,y:{ticks:{font:{size:11},callback:v=>'Rp'+v+'rb'},grid:{color:'rgba(0,0,0,.06)'}}}};
-
-  const mk=(id,type,ds,opts)=>{
-    if(charts[id]) charts[id].destroy();
-    charts[id]=new Chart(document.getElementById(id),{type,data:{labels,datasets:ds},options:opts||base});
-  };
-  const pv=d=>parseInt(d.pp_total)||0, cv=d=>parseInt(d.cod_total)||0;
-  const rrc=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
-  const rrp=d=>{const t=parseInt(d.pp_total)||0,r=parseInt(d.pp_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
-  const rj=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_reject)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
-  const co=d=>{const t=parseInt(d.cod_total)||0,s=parseInt(d.cod_success)||0;return t?parseFloat((s/t*100).toFixed(1)):0;};
-
-  mk('ch-vol','bar',[{label:'Prepaid',data:allData.map(pv),backgroundColor:'#1B3A6B'},{label:'COD',data:allData.map(cv),backgroundColor:'#C55A2B'}]);
-  mk('ch-rr','line',[{label:'COD',data:allData.map(rrc),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4},{label:'Prepaid',data:allData.map(rrp),borderColor:'#1B3A6B',backgroundColor:'rgba(27,58,107,.06)',tension:.4,fill:true,pointRadius:4}],pctY);
-  mk('ch-rej','line',[{label:'Rej',data:allData.map(rj),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4}],pctY);
-  mk('ch-conv','line',[{label:'Conv',data:allData.map(co),borderColor:'#3B6D11',backgroundColor:'rgba(59,109,17,.08)',tension:.4,fill:true,pointRadius:4}],pctY);
-  mk('ch-aov','bar',[{label:'COD',data:allData.map(d=>fmtRpK(d.aov_cod)),backgroundColor:'#C55A2B'},{label:'Prepaid',data:allData.map(d=>fmtRpK(d.aov_pp)),backgroundColor:'#1B3A6B'}],rpY);
+// ── Selects ───────────────────────────────────────────────────────────────────
+function populateSelects() {
+  const weeks = allData.map(d=>d.week);
+  const last  = weeks.length-1;
+  ['sel-single','sel-cmp-a','sel-cmp-b'].forEach(id=>{
+    const sel = document.getElementById(id);
+    const prev = sel.value;
+    sel.innerHTML = weeks.map((w,i)=>`<option value="${i}">${w}</option>`).join('');
+    if(prev && weeks[parseInt(prev)]) sel.value=prev;
+  });
+  document.getElementById('sel-single').value = last;
+  document.getElementById('sel-cmp-a').value  = last>0?last-1:0;
+  document.getElementById('sel-cmp-b').value  = last;
 }
 
+// ── Render helpers ────────────────────────────────────────────────────────────
+function fillMetricCards(prefix, d, weekLabel) {
+  const m = mkMetrics(d);
+  const diff = m.rrC - m.rrP;
+  document.getElementById(prefix+'cod-total').textContent = fmt(m.ct);
+  document.getElementById(prefix+'cod-total-sub').textContent = 'minggu '+weekLabel;
+  document.getElementById(prefix+'rr-cod').textContent = fmtPct(m.cr,m.ct);
+  const sub = document.getElementById(prefix+'rr-cod-sub');
+  sub.textContent = (diff>=0?'+':'')+diff.toFixed(1)+'% vs prepaid';
+  sub.className = 'mc-sub '+(diff>0?'up':'dn');
+  document.getElementById(prefix+'rej').textContent = fmtPct(m.crej,m.ct);
+  document.getElementById(prefix+'rej-sub').textContent = fmt(m.crej)+' paket ditolak';
+  document.getElementById(prefix+'conv').textContent = fmtPct(m.cs,m.ct);
+  document.getElementById(prefix+'conv-sub').textContent = fmt(m.cs)+' order sukses';
+  document.getElementById(prefix+'pp-total').textContent = fmt(m.pt);
+  document.getElementById(prefix+'pp-sub').textContent = 'minggu '+weekLabel;
+  document.getElementById(prefix+'rr-pp').textContent = fmtPct(m.pr,m.pt);
+  document.getElementById(prefix+'rr-pp-sub').textContent = fmt(m.pr)+' return';
+  document.getElementById(prefix+'aov-cod').textContent = fmtRp(m.ac);
+  document.getElementById(prefix+'aov-sub').textContent = m.ap?'vs '+fmtRp(m.ap)+' prepaid':'—';
+  if(document.getElementById(prefix+'aov-pp'))
+    document.getElementById(prefix+'aov-pp').textContent = fmtRp(m.ap);
+}
+
+function mkChart(id, type, datasets, opts) {
+  if(charts[id]) charts[id].destroy();
+  charts[id] = new Chart(document.getElementById(id),{type,data:{labels:opts.labels,datasets},options:opts.cfg||{}});
+}
+
+const baseCfg = (labels, pctAxis=false, rpAxis=false) => ({
+  labels,
+  cfg:{
+    responsive:true, maintainAspectRatio:false, animation:{duration:300},
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{font:{size:11},maxRotation:45,autoSkip:labels.length>10},grid:{display:false}},
+      y:{ticks:{font:{size:11},...(pctAxis?{callback:v=>v+'%'}:{}),...(rpAxis?{callback:v=>'Rp'+v+'rb'}:{})},grid:{color:'rgba(0,0,0,.06)'}}
+    }
+  }
+});
+
+// ── Overview mode ─────────────────────────────────────────────────────────────
+function renderOverview() {
+  if(!allData.length){document.getElementById('no-data').style.display='block';return;}
+  document.getElementById('no-data').style.display='none';
+  const last = allData[allData.length-1];
+  fillMetricCards('ov-', last, last.week||'—');
+  const m = mkMetrics(last);
+  const alertEl = document.getElementById('alert-area-ov');
+  if(m.rrC>15) alertEl.innerHTML='<div class="alert a-warn">Return rate COD '+m.rrC.toFixed(1)+'% — di atas threshold 15%.</div>';
+  else if(m.rrC>0) alertEl.innerHTML='<div class="alert a-ok">Return rate COD '+m.rrC.toFixed(1)+'% — dalam batas normal.</div>';
+  else alertEl.innerHTML='';
+  document.getElementById('ov-weeks').textContent = allData.length;
+
+  const labels = allData.map(d=>d.week);
+  const base   = baseCfg(labels);
+  const pctB   = baseCfg(labels,true);
+  const rpB    = baseCfg(labels,false,true);
+  const cv = d=>parseInt(d.cod_total)||0, pv=d=>parseInt(d.pp_total)||0;
+  const rrc=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
+  const rrp=d=>{const t=parseInt(d.pp_total)||0,r=parseInt(d.pp_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
+  const rjr=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_reject)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
+  const cor=d=>{const t=parseInt(d.cod_total)||0,s=parseInt(d.cod_success)||0;return t?parseFloat((s/t*100).toFixed(1)):0;};
+  mkChart('ov-ch-vol','bar',[{label:'Prepaid',data:allData.map(pv),backgroundColor:'#1B3A6B'},{label:'COD',data:allData.map(cv),backgroundColor:'#C55A2B'}],base);
+  mkChart('ov-ch-rr','line',[{label:'COD',data:allData.map(rrc),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4},{label:'Prepaid',data:allData.map(rrp),borderColor:'#1B3A6B',backgroundColor:'rgba(27,58,107,.06)',tension:.4,fill:true,pointRadius:4}],pctB);
+  mkChart('ov-ch-rej','line',[{label:'Rej',data:allData.map(rjr),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4}],pctB);
+  mkChart('ov-ch-conv','line',[{label:'Conv',data:allData.map(cor),borderColor:'#3B6D11',backgroundColor:'rgba(59,109,17,.08)',tension:.4,fill:true,pointRadius:4}],pctB);
+  mkChart('ov-ch-aov','bar',[{label:'COD',data:allData.map(d=>fmtRpK(d.aov_cod)),backgroundColor:'#C55A2B'},{label:'Prepaid',data:allData.map(d=>fmtRpK(d.aov_pp)),backgroundColor:'#1B3A6B'}],rpB);
+}
+
+// ── Single mode ───────────────────────────────────────────────────────────────
+function renderSingle() {
+  if(!allData.length) return;
+  const idx = parseInt(document.getElementById('sel-single').value)||0;
+  const d   = allData[idx];
+  if(!d) return;
+  const m = mkMetrics(d);
+  fillMetricCards('sg-', d, d.week);
+  const alertEl = document.getElementById('alert-area-sg');
+  if(m.rrC>15) alertEl.innerHTML='<div class="alert a-warn">Return rate COD '+m.rrC.toFixed(1)+'% — di atas threshold 15%.</div>';
+  else if(m.rrC>0) alertEl.innerHTML='<div class="alert a-ok">Return rate COD '+m.rrC.toFixed(1)+'% — dalam batas normal.</div>';
+  else alertEl.innerHTML='';
+}
+
+// ── Compare mode ──────────────────────────────────────────────────────────────
+function renderCompare() {
+  if(!allData.length) return;
+  const ia = parseInt(document.getElementById('sel-cmp-a').value)||0;
+  const ib = parseInt(document.getElementById('sel-cmp-b').value)||0;
+  const da  = allData[ia], db = allData[ib];
+  if(!da||!db) return;
+  const ma = mkMetrics(da), mb = mkMetrics(db);
+
+  document.getElementById('cmp-tag-a').textContent = da.week;
+  document.getElementById('cmp-tag-b').textContent = db.week;
+
+  const metrics = [
+    {lbl:'COD total',    va:fmt(ma.ct),          vb:fmt(mb.ct),         diffRaw:mb.ct-ma.ct,         isUp:v=>v<0},
+    {lbl:'COD sukses',   va:fmt(ma.cs),           vb:fmt(mb.cs),         diffRaw:mb.cs-ma.cs,         isUp:v=>v>0},
+    {lbl:'Return COD',   va:fmt(ma.cr),           vb:fmt(mb.cr),         diffRaw:mb.cr-ma.cr,         isUp:v=>v<0},
+    {lbl:'RR COD',       va:ma.rrC.toFixed(1)+'%', vb:mb.rrC.toFixed(1)+'%', diffRaw:mb.rrC-ma.rrC,  isUp:v=>v<0},
+    {lbl:'Rejection',    va:ma.rejR.toFixed(1)+'%',vb:mb.rejR.toFixed(1)+'%',diffRaw:mb.rejR-ma.rejR, isUp:v=>v<0},
+    {lbl:'Conversion',   va:ma.convR.toFixed(1)+'%',vb:mb.convR.toFixed(1)+'%',diffRaw:mb.convR-ma.convR,isUp:v=>v>0},
+    {lbl:'Prepaid total',va:fmt(ma.pt),           vb:fmt(mb.pt),         diffRaw:mb.pt-ma.pt,         isUp:v=>v>0},
+    {lbl:'RR Prepaid',   va:ma.rrP.toFixed(1)+'%', vb:mb.rrP.toFixed(1)+'%', diffRaw:mb.rrP-ma.rrP,  isUp:v=>v<0},
+    {lbl:'AOV COD',      va:fmtRp(ma.ac),         vb:fmtRp(mb.ac),       diffRaw:mb.ac-ma.ac,         isUp:v=>v>0},
+    {lbl:'AOV Prepaid',  va:fmtRp(ma.ap),         vb:fmtRp(mb.ap),       diffRaw:mb.ap-ma.ap,         isUp:v=>v>0},
+  ];
+
+  function makeRows(side, diffDir) {
+    return metrics.map(r=>{
+      const isA = side==='a';
+      const val = isA ? r.va : r.vb;
+      const diff = r.diffRaw;
+      const sign = diff>0?'+':'';
+      const pctDiff = Math.abs(diff)<0.01?'0':sign+diff.toFixed(diff%1===0?0:1);
+      let cls='diff-neu';
+      if(Math.abs(diff)>0.01) cls = r.isUp(isA?-diff:diff)?'diff-dn':'diff-up';
+      const tag = Math.abs(diff)<0.01?'—':pctDiff;
+      return `<div class="cmp-row"><span class="cmp-lbl">${r.lbl}</span><span style="display:flex;align-items:center;gap:6px"><span class="cmp-val">${val}</span>${!isA?`<span class="cmp-diff ${cls}">${tag}</span>`:''}</span></div>`;
+    }).join('');
+  }
+
+  document.getElementById('cmp-rows-a').innerHTML = makeRows('a');
+  document.getElementById('cmp-rows-b').innerHTML = makeRows('b');
+
+  const weeks = [da.week, db.week];
+  const barCfg = {
+    responsive:true,maintainAspectRatio:false,animation:{duration:300},
+    plugins:{legend:{display:true,labels:{font:{size:11},boxWidth:10,padding:10}}},
+    scales:{x:{ticks:{font:{size:11}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}}
+  };
+  const pctBarCfg = {...barCfg,scales:{...barCfg.scales,y:{ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.06)'}}}};
+  const rpBarCfg  = {...barCfg,scales:{...barCfg.scales,y:{ticks:{font:{size:11},callback:v=>'Rp'+v+'rb'},grid:{color:'rgba(0,0,0,.06)'}}}};
+
+  const mk2=(id,ds,cfg)=>{if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),{type:'bar',data:{labels:weeks,datasets:ds},options:cfg});};
+
+  mk2('cmp-ch-vol',[
+    {label:'COD',    data:[ma.ct,mb.ct],backgroundColor:['rgba(197,90,43,.8)','rgba(197,90,43,.4)']},
+    {label:'Prepaid',data:[ma.pt,mb.pt],backgroundColor:['rgba(27,58,107,.8)','rgba(27,58,107,.4)']}
+  ],barCfg);
+  mk2('cmp-ch-rate',[
+    {label:'RR COD',   data:[parseFloat(ma.rrC.toFixed(1)),parseFloat(mb.rrC.toFixed(1))],backgroundColor:['rgba(197,90,43,.8)','rgba(197,90,43,.4)']},
+    {label:'Rejection',data:[parseFloat(ma.rejR.toFixed(1)),parseFloat(mb.rejR.toFixed(1))],backgroundColor:['rgba(27,58,107,.8)','rgba(27,58,107,.4)']}
+  ],pctBarCfg);
+  mk2('cmp-ch-conv',[
+    {label:'Conversion',data:[parseFloat(ma.convR.toFixed(1)),parseFloat(mb.convR.toFixed(1))],backgroundColor:['rgba(59,109,17,.8)','rgba(59,109,17,.4)']}
+  ],pctBarCfg);
+  mk2('cmp-ch-aov',[
+    {label:'AOV COD',    data:[fmtRpK(ma.ac),fmtRpK(mb.ac)],backgroundColor:['rgba(197,90,43,.8)','rgba(197,90,43,.4)']},
+    {label:'AOV Prepaid',data:[fmtRpK(ma.ap),fmtRpK(mb.ap)],backgroundColor:['rgba(27,58,107,.8)','rgba(27,58,107,.4)']}
+  ],rpBarCfg);
+}
+
+// ── Table ─────────────────────────────────────────────────────────────────────
 function renderTable() {
   const tbody=document.getElementById('tbl-body');
   const empty=document.getElementById('tbl-empty');
