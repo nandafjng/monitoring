@@ -10,7 +10,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:#1B3A6B;--navy-mid:#2d5499;--navy-light:#E8EEF8;
-  --orange:#C55A2B;
+  --orange:#C55A2B;--orange-light:#FAECE7;
   --green-bg:#EAF3DE;--green-text:#27500A;
   --red-bg:#FCEBEB;--red-text:#791F1F;
   --amber-bg:#FAEEDA;--amber-text:#633806;
@@ -38,10 +38,10 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .spinning{animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
-.tb-left{display:flex;align-items:center;gap:10px}
-.tb-title{font-size:15px;font-weight:500}
-.tb-status{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;gap:12px}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0}
+.tb-title{font-size:15px;font-weight:500;white-space:nowrap}
+.tb-status{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px;white-space:nowrap}
 .status-dot{width:7px;height:7px;border-radius:50%;background:#D1D5DB;flex-shrink:0;transition:background .3s}
 .status-dot.live{background:#3B6D11}
 .status-dot.error{background:#A32D2D}
@@ -49,6 +49,17 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .page{display:none}.page.active{display:block}
 .sec{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin:1.75rem 0 .875rem}
 .sec:first-child{margin-top:0}
+
+/* Threshold settings */
+.threshold-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:1.25rem}
+.threshold-bar label{font-size:12px;color:var(--t2);font-weight:500;white-space:nowrap}
+.thr-group{display:flex;align-items:center;gap:6px}
+.thr-input{width:60px;padding:5px 8px;font-size:12px;font-family:var(--fm);border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--t1);outline:none;text-align:center}
+.thr-input:focus{border-color:var(--navy-mid)}
+.thr-unit{font-size:11px;color:var(--t3)}
+.thr-save{padding:5px 12px;background:var(--navy);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:var(--fs)}
+.thr-save:hover{background:var(--navy-mid)}
+.thr-divider{width:1px;height:20px;background:var(--border)}
 
 /* Mode switcher */
 .mode-bar{display:flex;gap:8px;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap}
@@ -64,6 +75,18 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .week-select:focus{border-color:var(--navy-mid)}
 .vs-label{font-size:12px;color:var(--t3);font-weight:500;padding:0 4px}
 
+/* WoW badges */
+.wow-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 7px;border-radius:99px;font-family:var(--fm);margin-top:4px;font-weight:500}
+.wow-up{background:var(--red-bg);color:var(--red-text)}
+.wow-dn{background:var(--green-bg);color:var(--green-text)}
+.wow-neu{background:#F3F4F6;color:var(--t3)}
+.wow-up-good{background:var(--green-bg);color:var(--green-text)}
+.wow-dn-bad{background:var(--red-bg);color:var(--red-text)}
+
+/* Summary box */
+.summary-box{background:var(--navy-light);border:1px solid #B5D4F4;border-radius:10px;padding:14px 18px;margin-bottom:1.25rem;font-size:13px;color:var(--navy);line-height:1.7}
+.summary-box strong{font-weight:500}
+
 /* Compare cards */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem}
 .cmp-col{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px}
@@ -71,20 +94,24 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .cmp-col.col-b{border-top:3px solid var(--navy)}
 .cmp-header{font-size:12px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .cmp-week-tag{font-family:var(--fm);font-size:11px;padding:2px 8px;border-radius:99px}
-.tag-a{background:var(--orange-light,#FAECE7);color:#712B13}
+.tag-a{background:var(--orange-light);color:#712B13}
 .tag-b{background:var(--navy-light);color:var(--navy)}
-.cmp-rows{}
-.cmp-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:0.5px solid #F0F2F5;font-size:12px}
+.cmp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid #F0F2F5;font-size:12px}
 .cmp-row:last-child{border-bottom:none}
 .cmp-lbl{color:var(--t3)}
+.cmp-right{display:flex;align-items:center;gap:6px}
 .cmp-val{font-family:var(--fm);font-weight:500;color:var(--t1)}
-.cmp-diff{font-size:11px;padding:1px 6px;border-radius:99px;font-family:var(--fm)}
+.cmp-diff{font-size:10px;padding:1px 6px;border-radius:99px;font-family:var(--fm);font-weight:500}
 .diff-up{background:var(--red-bg);color:var(--red-text)}
 .diff-dn{background:var(--green-bg);color:var(--green-text)}
 .diff-neu{background:#F3F4F6;color:var(--t3)}
+.cmp-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 
-/* Compare charts */
-.cmp-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:0}
+/* Export buttons */
+.export-bar{display:flex;gap:8px;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.export-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--border);border-radius:7px;background:var(--white);color:var(--t2);font-size:12px;cursor:pointer;font-family:var(--fs);transition:all .15s}
+.export-btn:hover{border-color:#c8cdd7;color:var(--t1);background:#FAFBFD}
+.export-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 
 /* Metric cards */
 .mg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
@@ -93,24 +120,30 @@ body{font-family:var(--fs);background:var(--bg);color:var(--t1);font-size:14px;m
 .mc-accent{border-left:3px solid var(--orange)}
 .mc-lbl{font-size:11px;color:var(--t3);font-weight:500;margin-bottom:6px}
 .mc-val{font-size:23px;font-weight:500;font-family:var(--fm);line-height:1}
-.mc-sub{font-size:11px;margin-top:5px;color:var(--t3)}
+.mc-sub{font-size:11px;margin-top:4px;color:var(--t3)}
 .mc-sub.up{color:#A32D2D}.mc-sub.dn{color:#3B6D11}
 .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px}
+.chart-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
 .chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
-.ct{font-size:13px;font-weight:500;margin-bottom:3px}
-.cs{font-size:11px;color:var(--t3);margin-bottom:14px}
+.ct{font-size:13px;font-weight:500}
+.cs{font-size:11px;color:var(--t3);margin-bottom:14px;margin-top:2px}
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)}
 .ldot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.chart-export{padding:4px 9px;border:1px solid var(--border);border-radius:6px;background:var(--white);color:var(--t3);font-size:10px;cursor:pointer;font-family:var(--fs);transition:all .15s}
+.chart-export:hover{color:var(--t1);border-color:#c8cdd7}
 .alert{padding:10px 14px;border-radius:8px;font-size:12px;margin-bottom:1.25rem;line-height:1.5}
 .a-warn{background:var(--amber-bg);color:var(--amber-text);border:1px solid #FAC775}
 .a-ok{background:var(--green-bg);color:var(--green-text);border:1px solid #C0DD97}
 .a-err{background:var(--red-bg);color:var(--red-text);border:1px solid #F7C1C1}
+
+/* Table */
+.tbl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:8px}
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th{text-align:left;font-weight:500;color:var(--t2);padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
 td{padding:8px 10px;border-bottom:1px solid #F0F2F5;white-space:nowrap}
-td:not(:first-child){text-align:right;font-family:var(--fm)}
+td:not(:first-child):not(:nth-child(2)){text-align:right;font-family:var(--fm)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#FAFBFD}
 .badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500}
@@ -118,11 +151,16 @@ tr:hover td{background:#FAFBFD}
 .b-warn{background:var(--amber-bg);color:var(--amber-text)}
 .b-danger{background:var(--red-bg);color:var(--red-text)}
 .b-navy{background:var(--navy-light);color:var(--navy);font-family:var(--fm)}
+.date-range{font-size:10px;color:var(--t3);font-family:var(--fm)}
 .empty{text-align:center;padding:3rem 1rem;color:var(--t3);font-size:13px}
+
+/* Category table */
+.cat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+
 @media(max-width:900px){
   .sidebar{width:200px}
   .mg,.mg2{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .chart-grid,.cmp-chart-grid,.compare-grid{grid-template-columns:1fr}
+  .chart-grid,.cmp-chart-grid,.compare-grid,.cat-grid{grid-template-columns:1fr}
   .content{padding:16px}
 }
 @media(max-width:640px){
@@ -133,6 +171,7 @@ tr:hover td{background:#FAFBFD}
   .nav-item.active{border-left-color:transparent;border-bottom-color:var(--orange)}
   .sb-foot{display:none}
   .topbar{padding:0 16px}
+  .threshold-bar{display:none}
 }
 </style>
 </head>
@@ -172,6 +211,29 @@ tr:hover td{background:#FAFBFD}
       <!-- DASHBOARD -->
       <div id="page-dashboard" class="page active">
 
+        <!-- Threshold settings -->
+        <div class="threshold-bar">
+          <label>Alert threshold:</label>
+          <div class="thr-group">
+            <label style="font-size:11px;color:var(--t3)">Return rate</label>
+            <input type="number" class="thr-input" id="thr-rr" value="15" min="0" max="100">
+            <span class="thr-unit">%</span>
+          </div>
+          <div class="thr-divider"></div>
+          <div class="thr-group">
+            <label style="font-size:11px;color:var(--t3)">Rejection rate</label>
+            <input type="number" class="thr-input" id="thr-rej" value="10" min="0" max="100">
+            <span class="thr-unit">%</span>
+          </div>
+          <div class="thr-divider"></div>
+          <div class="thr-group">
+            <label style="font-size:11px;color:var(--t3)">Conversion min</label>
+            <input type="number" class="thr-input" id="thr-conv" value="80" min="0" max="100">
+            <span class="thr-unit">%</span>
+          </div>
+          <button class="thr-save" onclick="saveThresholds()">Simpan</button>
+        </div>
+
         <!-- Mode switcher -->
         <div class="mode-bar">
           <button class="mode-btn active" onclick="setMode('overview')">Semua minggu</button>
@@ -179,8 +241,9 @@ tr:hover td{background:#FAFBFD}
           <button class="mode-btn" onclick="setMode('compare')">Bandingkan</button>
         </div>
 
-        <!-- ── MODE: OVERVIEW (semua minggu) ── -->
+        <!-- ── OVERVIEW ── -->
         <div id="mode-overview" class="mode-panel active">
+          <div id="summary-ov"></div>
           <div id="alert-area-ov"></div>
           <div class="sec">Ringkasan minggu terakhir</div>
           <div class="mg">
@@ -188,21 +251,25 @@ tr:hover td{background:#FAFBFD}
               <div class="mc-lbl">Total order COD</div>
               <div class="mc-val" id="ov-cod-total">—</div>
               <div class="mc-sub" id="ov-cod-total-sub">—</div>
+              <div id="ov-wow-cod" style="margin-top:4px"></div>
             </div>
             <div class="mc">
               <div class="mc-lbl">Return rate COD</div>
               <div class="mc-val" id="ov-rr-cod">—</div>
               <div class="mc-sub" id="ov-rr-cod-sub">—</div>
+              <div id="ov-wow-rr" style="margin-top:4px"></div>
             </div>
             <div class="mc">
               <div class="mc-lbl">Rejection rate</div>
               <div class="mc-val" id="ov-rej">—</div>
               <div class="mc-sub" id="ov-rej-sub">—</div>
+              <div id="ov-wow-rej" style="margin-top:4px"></div>
             </div>
             <div class="mc">
               <div class="mc-lbl">Conversion rate</div>
               <div class="mc-val" id="ov-conv">—</div>
               <div class="mc-sub" id="ov-conv-sub">—</div>
+              <div id="ov-wow-conv" style="margin-top:4px"></div>
             </div>
           </div>
           <div class="mg2">
@@ -229,8 +296,10 @@ tr:hover td{background:#FAFBFD}
           </div>
           <div class="sec">Tren mingguan</div>
           <div class="card">
-            <div class="ct">Volume order COD vs Prepaid</div>
-            <div class="cs">Jumlah order per minggu</div>
+            <div class="chart-row">
+              <div><div class="ct">Volume order COD vs Prepaid</div><div class="cs">Jumlah order per minggu</div></div>
+              <button class="chart-export" onclick="exportChart('ov-ch-vol','volume_cod_prepaid')">Simpan PNG</button>
+            </div>
             <div class="legend">
               <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
               <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
@@ -239,8 +308,10 @@ tr:hover td{background:#FAFBFD}
           </div>
           <div class="chart-grid">
             <div class="card">
-              <div class="ct">Return rate (%)</div>
-              <div class="cs">COD vs Prepaid per minggu</div>
+              <div class="chart-row">
+                <div><div class="ct">Return rate (%)</div><div class="cs">COD vs Prepaid per minggu</div></div>
+                <button class="chart-export" onclick="exportChart('ov-ch-rr','return_rate')">Simpan PNG</button>
+              </div>
               <div class="legend">
                 <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
                 <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
@@ -248,22 +319,28 @@ tr:hover td{background:#FAFBFD}
               <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-rr"></canvas></div>
             </div>
             <div class="card">
-              <div class="ct">Rejection rate COD (%)</div>
-              <div class="cs">Paket ditolak saat pengiriman</div>
+              <div class="chart-row">
+                <div><div class="ct">Rejection rate COD (%)</div><div class="cs">Paket ditolak saat pengiriman</div></div>
+                <button class="chart-export" onclick="exportChart('ov-ch-rej','rejection_rate')">Simpan PNG</button>
+              </div>
               <div class="legend"><div class="leg"><span class="ldot" style="background:#C55A2B"></span>Rejection</div></div>
               <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-rej"></canvas></div>
             </div>
           </div>
           <div class="chart-grid">
             <div class="card">
-              <div class="ct">Conversion rate COD (%)</div>
-              <div class="cs">Order yang berhasil diterima</div>
+              <div class="chart-row">
+                <div><div class="ct">Conversion rate COD (%)</div><div class="cs">Order yang berhasil diterima</div></div>
+                <button class="chart-export" onclick="exportChart('ov-ch-conv','conversion_rate')">Simpan PNG</button>
+              </div>
               <div class="legend"><div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div></div>
               <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-conv"></canvas></div>
             </div>
             <div class="card">
-              <div class="ct">AOV perbandingan (Rp ribu)</div>
-              <div class="cs">Average order value COD vs Prepaid</div>
+              <div class="chart-row">
+                <div><div class="ct">AOV perbandingan (Rp ribu)</div><div class="cs">Average order value COD vs Prepaid</div></div>
+                <button class="chart-export" onclick="exportChart('ov-ch-aov','aov_comparison')">Simpan PNG</button>
+              </div>
               <div class="legend">
                 <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
                 <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
@@ -271,35 +348,58 @@ tr:hover td{background:#FAFBFD}
               <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-aov"></canvas></div>
             </div>
           </div>
+
+          <!-- Kategori produk -->
+          <div class="sec">Performa per kategori produk</div>
+          <div id="cat-section">
+            <div class="cat-grid">
+              <div class="card">
+                <div class="ct" style="margin-bottom:12px">Return rate per kategori (%)</div>
+                <div style="position:relative;width:100%;height:220px"><canvas id="ov-ch-cat-rr"></canvas></div>
+              </div>
+              <div class="card">
+                <div class="ct" style="margin-bottom:12px">Volume COD per kategori</div>
+                <div style="position:relative;width:100%;height:220px"><canvas id="ov-ch-cat-vol"></canvas></div>
+              </div>
+            </div>
+            <div id="no-cat" class="empty" style="display:none;padding:1rem">
+              Tambah kolom <code style="font-family:var(--fm);font-size:11px">category</code> di Google Sheets untuk melihat breakdown per kategori.
+            </div>
+          </div>
         </div>
 
-        <!-- ── MODE: SINGLE (pilih 1 minggu) ── -->
+        <!-- ── SINGLE ── -->
         <div id="mode-single" class="mode-panel">
           <div class="week-controls">
             <label>Pilih minggu:</label>
             <select class="week-select" id="sel-single" onchange="renderSingle()"></select>
           </div>
+          <div id="summary-sg"></div>
           <div id="alert-area-sg"></div>
           <div class="mg">
             <div class="mc mc-accent">
               <div class="mc-lbl">Total order COD</div>
               <div class="mc-val" id="sg-cod-total">—</div>
               <div class="mc-sub" id="sg-cod-total-sub">—</div>
+              <div id="sg-wow-cod" style="margin-top:4px"></div>
             </div>
             <div class="mc">
               <div class="mc-lbl">Return rate COD</div>
               <div class="mc-val" id="sg-rr-cod">—</div>
               <div class="mc-sub" id="sg-rr-cod-sub">—</div>
+              <div id="sg-wow-rr" style="margin-top:4px"></div>
             </div>
             <div class="mc">
               <div class="mc-lbl">Rejection rate</div>
               <div class="mc-val" id="sg-rej">—</div>
               <div class="mc-sub" id="sg-rej-sub">—</div>
+              <div id="sg-wow-rej" style="margin-top:4px"></div>
             </div>
             <div class="mc">
               <div class="mc-lbl">Conversion rate</div>
               <div class="mc-val" id="sg-conv">—</div>
               <div class="mc-sub" id="sg-conv-sub">—</div>
+              <div id="sg-wow-conv" style="margin-top:4px"></div>
             </div>
           </div>
           <div class="mg2">
@@ -326,7 +426,7 @@ tr:hover td{background:#FAFBFD}
           </div>
         </div>
 
-        <!-- ── MODE: COMPARE (bandingkan 2 minggu) ── -->
+        <!-- ── COMPARE ── -->
         <div id="mode-compare" class="mode-panel">
           <div class="week-controls">
             <label>Minggu A:</label>
@@ -335,37 +435,34 @@ tr:hover td{background:#FAFBFD}
             <label>Minggu B:</label>
             <select class="week-select" id="sel-cmp-b" onchange="renderCompare()"></select>
           </div>
+          <div id="summary-cmp"></div>
           <div class="compare-grid">
             <div class="cmp-col col-a">
               <div class="cmp-header"><span class="cmp-week-tag tag-a" id="cmp-tag-a">—</span>Minggu A</div>
-              <div class="cmp-rows" id="cmp-rows-a"></div>
+              <div id="cmp-rows-a"></div>
             </div>
             <div class="cmp-col col-b">
-              <div class="cmp-header"><span class="cmp-week-tag tag-b" id="cmp-tag-b">—</span>Minggu B</div>
-              <div class="cmp-rows" id="cmp-rows-b"></div>
+              <div class="cmp-header"><span class="cmp-week-tag tag-b" id="cmp-tag-b">—</span>Minggu B (vs A)</div>
+              <div id="cmp-rows-b"></div>
             </div>
           </div>
           <div class="sec">Perbandingan visual</div>
           <div class="cmp-chart-grid">
             <div class="card">
-              <div class="ct">Volume order</div>
-              <div class="cs">COD dan Prepaid</div>
-              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-vol"></canvas></div>
+              <div class="chart-row"><div class="ct">Volume order</div><button class="chart-export" onclick="exportChart('cmp-ch-vol','compare_volume')">Simpan PNG</button></div>
+              <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-vol"></canvas></div>
             </div>
             <div class="card">
-              <div class="ct">Return & rejection rate (%)</div>
-              <div class="cs">COD performance</div>
-              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-rate"></canvas></div>
+              <div class="chart-row"><div class="ct">Return & rejection rate (%)</div><button class="chart-export" onclick="exportChart('cmp-ch-rate','compare_rates')">Simpan PNG</button></div>
+              <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-rate"></canvas></div>
             </div>
             <div class="card">
-              <div class="ct">Conversion rate (%)</div>
-              <div class="cs">Order berhasil diterima</div>
-              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-conv"></canvas></div>
+              <div class="chart-row"><div class="ct">Conversion rate (%)</div><button class="chart-export" onclick="exportChart('cmp-ch-conv','compare_conv')">Simpan PNG</button></div>
+              <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-conv"></canvas></div>
             </div>
             <div class="card">
-              <div class="ct">AOV (Rp ribu)</div>
-              <div class="cs">Average order value</div>
-              <div style="position:relative;width:100%;height:200px"><canvas id="cmp-ch-aov"></canvas></div>
+              <div class="chart-row"><div class="ct">AOV (Rp ribu)</div><button class="chart-export" onclick="exportChart('cmp-ch-aov','compare_aov')">Simpan PNG</button></div>
+              <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-aov"></canvas></div>
             </div>
           </div>
         </div>
@@ -375,13 +472,21 @@ tr:hover td{background:#FAFBFD}
 
       <!-- TABEL -->
       <div id="page-tabel" class="page">
-        <div class="sec">Semua data mingguan</div>
+        <div class="tbl-top">
+          <div class="sec" style="margin:0">Semua data mingguan</div>
+          <button class="export-btn" onclick="exportCSV()">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+        </div>
         <div class="card">
           <div class="tbl-wrap">
-            <table>
+            <table id="main-table">
               <thead>
                 <tr>
-                  <th>Minggu</th><th>COD total</th><th>Sukses</th><th>Return</th>
+                  <th>Minggu</th>
+                  <th>Tanggal</th>
+                  <th>COD total</th><th>Sukses</th><th>Return</th>
                   <th>RR COD</th><th>Rejection</th><th>Rej%</th>
                   <th>Prepaid</th><th>Ret PP</th><th>RR PP</th>
                   <th>AOV COD</th><th>AOV PP</th>
@@ -399,27 +504,94 @@ tr:hover td{background:#FAFBFD}
 </div>
 
 <script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
 const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSP0G5lgb0M8GVLVNz6DhJNDyjQ4ZaJieL0c8N0ahJRTo-nPZ6yhbO-G-w67TK0CGczQWgaim4T2rO1/pub?output=csv';
 const PROXY = 'https://api.allorigins.win/raw?url=';
+const THR_KEY = 'cod_thresholds';
+
 let allData = [];
 let charts  = {};
 let currentMode = 'overview';
+let thresholds = { rr: 15, rej: 10, conv: 80 };
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Threshold ─────────────────────────────────────────────────────────────────
+function loadThresholds() {
+  try { const t=JSON.parse(localStorage.getItem(THR_KEY)); if(t) thresholds=t; } catch{}
+  document.getElementById('thr-rr').value   = thresholds.rr;
+  document.getElementById('thr-rej').value  = thresholds.rej;
+  document.getElementById('thr-conv').value = thresholds.conv;
+}
+function saveThresholds() {
+  thresholds.rr   = parseFloat(document.getElementById('thr-rr').value)  || 15;
+  thresholds.rej  = parseFloat(document.getElementById('thr-rej').value) || 10;
+  thresholds.conv = parseFloat(document.getElementById('thr-conv').value)|| 80;
+  localStorage.setItem(THR_KEY, JSON.stringify(thresholds));
+  if(allData.length) { if(currentMode==='overview') renderOverview(); else if(currentMode==='single') renderSingle(); }
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
 function fmt(n)     { const v=parseInt(n); return isNaN(v)?'—':v.toLocaleString('id-ID'); }
 function fmtPct(a,b){ if(!b||b==0)return'—'; return (a/b*100).toFixed(1)+'%'; }
 function fmtRp(n)   { const v=parseInt(n); if(!v||isNaN(v))return'—'; return v>=1000000?'Rp '+(v/1000000).toFixed(1)+'jt':'Rp '+Math.round(v/1000)+'rb'; }
 function fmtRpK(n)  { const v=parseInt(n); return isNaN(v)?0:Math.round(v/1000); }
-function pct(a,b)   { return b>0?a/b*100:0; }
-function bdgCls(p)  { if(p===null)return''; if(p>15)return'b-danger'; if(p>10)return'b-warn'; return'b-ok'; }
+function pct(a,b)   { return b>0?parseFloat((a/b*100).toFixed(1)):0; }
+function bdgCls(p)  { if(p===null)return''; if(p>thresholds.rr)return'b-danger'; if(p>thresholds.rr*0.7)return'b-warn'; return'b-ok'; }
+
 function mkMetrics(d) {
   const ct=parseInt(d.cod_total)||0, cs=parseInt(d.cod_success)||0;
   const cr=parseInt(d.cod_return)||0, crej=parseInt(d.cod_reject)||0;
   const pt=parseInt(d.pp_total)||0,  pr=parseInt(d.pp_return)||0;
   const ac=parseInt(d.aov_cod)||0,   ap=parseInt(d.aov_pp)||0;
   return {ct,cs,cr,crej,pt,pr,ac,ap,
-    rrC:pct(cr,ct), rrP:pct(pr,pt),
-    rejR:pct(crej,ct), convR:pct(cs,ct)};
+    rrC:pct(cr,ct), rrP:pct(pr,pt), rejR:pct(crej,ct), convR:pct(cs,ct)};
+}
+
+function wowBadge(curr, prev, isGoodUp) {
+  if(prev===undefined||prev===null) return '';
+  const diff = curr - prev;
+  if(Math.abs(diff)<0.01) return '<span class="wow-badge wow-neu">— vs minggu lalu</span>';
+  const sign = diff>0?'+':'';
+  const good = isGoodUp ? diff>0 : diff<0;
+  const cls  = good ? 'wow-dn' : 'wow-up';
+  return `<span class="wow-badge ${cls}">${sign}${Math.abs(diff)>=10?Math.round(diff):diff.toFixed(1)} vs minggu lalu</span>`;
+}
+
+function buildAlerts(m) {
+  const alerts = [];
+  if(m.rrC > thresholds.rr)   alerts.push(`<div class="alert a-warn">Return rate COD <strong>${m.rrC.toFixed(1)}%</strong> — melewati threshold ${thresholds.rr}%.</div>`);
+  if(m.rejR > thresholds.rej) alerts.push(`<div class="alert a-warn">Rejection rate <strong>${m.rejR.toFixed(1)}%</strong> — melewati threshold ${thresholds.rej}%.</div>`);
+  if(m.convR < thresholds.conv && m.ct>0) alerts.push(`<div class="alert a-warn">Conversion rate <strong>${m.convR.toFixed(1)}%</strong> — di bawah minimum ${thresholds.conv}%.</div>`);
+  if(!alerts.length && m.ct>0) alerts.push(`<div class="alert a-ok">Semua metrik COD dalam batas normal minggu ini.</div>`);
+  return alerts.join('');
+}
+
+function buildSummary(curr, prev) {
+  const m = mkMetrics(curr);
+  if(!m.ct) return '';
+  const parts = [];
+  const weekLabel = curr.week || 'Minggu ini';
+
+  parts.push(`<strong>${weekLabel}</strong>: ${fmt(m.ct)} order COD masuk`);
+
+  if(prev) {
+    const mp = mkMetrics(prev);
+    const volDiff = m.ct - mp.ct;
+    const rrDiff  = m.rrC - mp.rrC;
+    const convDiff = m.convR - mp.convR;
+    if(volDiff!==0) parts.push(`volume ${volDiff>0?'naik':'turun'} ${Math.abs(volDiff).toLocaleString('id-ID')} order vs minggu sebelumnya`);
+    if(Math.abs(rrDiff)>=0.5) parts.push(`return rate ${rrDiff>0?'memburuk ke':'membaik ke'} ${m.rrC.toFixed(1)}% (${rrDiff>0?'+':''}${rrDiff.toFixed(1)}%)`);
+    if(Math.abs(convDiff)>=0.5) parts.push(`conversion ${convDiff>0?'naik':'turun'} ke ${m.convR.toFixed(1)}%`);
+  }
+
+  const issues = [];
+  if(m.rrC > thresholds.rr)   issues.push(`return rate melewati threshold ${thresholds.rr}%`);
+  if(m.rejR > thresholds.rej) issues.push(`rejection rate di atas ${thresholds.rej}%`);
+  if(m.convR < thresholds.conv && m.ct>0) issues.push(`conversion di bawah ${thresholds.conv}%`);
+
+  let txt = parts.join(', ') + '.';
+  if(issues.length) txt += ` <strong style="color:#A32D2D">Perlu perhatian: ${issues.join(' dan ')}.</strong>`;
+
+  return `<div class="summary-box">${txt}</div>`;
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
@@ -432,55 +604,47 @@ function showPage(p) {
 }
 
 function setMode(m) {
-  currentMode = m;
+  currentMode=m;
   document.querySelectorAll('.mode-btn').forEach((b,i)=>{
-    b.classList.toggle('active', ['overview','single','compare'][i]===m);
+    b.classList.toggle('active',['overview','single','compare'][i]===m);
   });
   document.querySelectorAll('.mode-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('mode-'+m).classList.add('active');
   if(!allData.length) return;
   if(m==='overview') renderOverview();
   else if(m==='single') renderSingle();
-  else if(m==='compare') renderCompare();
+  else renderCompare();
 }
 
 function setStatus(msg, ok) {
   document.getElementById('status-text').textContent = msg;
-  const d = document.getElementById('status-dot');
-  d.className = 'status-dot'+(ok===true?' live':ok===false?' error':'');
+  document.getElementById('status-dot').className = 'status-dot'+(ok===true?' live':ok===false?' error':'');
 }
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────
 function parseCSV(text) {
-  const lines = text.trim().split('\n').filter(l=>l.trim());
+  const lines=text.trim().split('\n').filter(l=>l.trim());
   if(lines.length<2) return [];
-  const headers = lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/\r/g,''));
+  const headers=lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/\r/g,''));
   return lines.slice(1).map(line=>{
     const vals=line.split(',').map(v=>v.trim().replace(/\r/g,''));
     const row={};
-    headers.forEach((h,i)=>row[h]=vals[i]||'0');
+    headers.forEach((h,i)=>row[h]=vals[i]||'');
     return row;
   }).filter(r=>r.week&&r.week!=='0'&&r.week!=='');
 }
 
 async function fetchData() {
-  const icon = document.getElementById('spin-icon');
+  const icon=document.getElementById('spin-icon');
   icon.classList.add('spinning');
   setStatus('Memuat...', null);
   try {
     let text;
-    try {
-      const res = await fetch(SHEETS_URL,{cache:'no-store'});
-      if(!res.ok) throw new Error('direct fail');
-      text = await res.text();
-    } catch {
-      const res = await fetch(PROXY+encodeURIComponent(SHEETS_URL),{cache:'no-store'});
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      text = await res.text();
-    }
-    const parsed = parseCSV(text);
+    try { const r=await fetch(SHEETS_URL,{cache:'no-store'}); if(!r.ok) throw 0; text=await r.text(); }
+    catch { const r=await fetch(PROXY+encodeURIComponent(SHEETS_URL),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); text=await r.text(); }
+    const parsed=parseCSV(text);
     if(!parsed.length) throw new Error('Data kosong');
-    allData = parsed;
+    allData=parsed;
     populateSelects();
     if(currentMode==='overview') renderOverview();
     else if(currentMode==='single') renderSingle();
@@ -490,178 +654,188 @@ async function fetchData() {
   } catch(e) {
     setStatus('Gagal memuat', false);
     document.getElementById('alert-area-ov').innerHTML=`<div class="alert a-err">Gagal memuat: ${e.message}</div>`;
-  } finally {
-    icon.classList.remove('spinning');
-  }
+  } finally { icon.classList.remove('spinning'); }
 }
 
 // ── Selects ───────────────────────────────────────────────────────────────────
 function populateSelects() {
-  const weeks = allData.map(d=>d.week);
-  const last  = weeks.length-1;
+  const weeks=allData.map(d=>d.week);
+  const last=weeks.length-1;
   ['sel-single','sel-cmp-a','sel-cmp-b'].forEach(id=>{
-    const sel = document.getElementById(id);
-    const prev = sel.value;
-    sel.innerHTML = weeks.map((w,i)=>`<option value="${i}">${w}</option>`).join('');
-    if(prev && weeks[parseInt(prev)]) sel.value=prev;
+    const sel=document.getElementById(id);
+    const prev=sel.value;
+    sel.innerHTML=weeks.map((w,i)=>`<option value="${i}">${w}</option>`).join('');
+    if(prev&&weeks[parseInt(prev)]) sel.value=prev;
   });
-  document.getElementById('sel-single').value = last;
-  document.getElementById('sel-cmp-a').value  = last>0?last-1:0;
-  document.getElementById('sel-cmp-b').value  = last;
+  document.getElementById('sel-single').value=last;
+  document.getElementById('sel-cmp-a').value=last>0?last-1:0;
+  document.getElementById('sel-cmp-b').value=last;
 }
 
-// ── Render helpers ────────────────────────────────────────────────────────────
-function fillMetricCards(prefix, d, weekLabel) {
-  const m = mkMetrics(d);
-  const diff = m.rrC - m.rrP;
-  document.getElementById(prefix+'cod-total').textContent = fmt(m.ct);
-  document.getElementById(prefix+'cod-total-sub').textContent = 'minggu '+weekLabel;
-  document.getElementById(prefix+'rr-cod').textContent = fmtPct(m.cr,m.ct);
-  const sub = document.getElementById(prefix+'rr-cod-sub');
-  sub.textContent = (diff>=0?'+':'')+diff.toFixed(1)+'% vs prepaid';
-  sub.className = 'mc-sub '+(diff>0?'up':'dn');
-  document.getElementById(prefix+'rej').textContent = fmtPct(m.crej,m.ct);
-  document.getElementById(prefix+'rej-sub').textContent = fmt(m.crej)+' paket ditolak';
-  document.getElementById(prefix+'conv').textContent = fmtPct(m.cs,m.ct);
-  document.getElementById(prefix+'conv-sub').textContent = fmt(m.cs)+' order sukses';
-  document.getElementById(prefix+'pp-total').textContent = fmt(m.pt);
-  document.getElementById(prefix+'pp-sub').textContent = 'minggu '+weekLabel;
-  document.getElementById(prefix+'rr-pp').textContent = fmtPct(m.pr,m.pt);
-  document.getElementById(prefix+'rr-pp-sub').textContent = fmt(m.pr)+' return';
-  document.getElementById(prefix+'aov-cod').textContent = fmtRp(m.ac);
-  document.getElementById(prefix+'aov-sub').textContent = m.ap?'vs '+fmtRp(m.ap)+' prepaid':'—';
-  if(document.getElementById(prefix+'aov-pp'))
-    document.getElementById(prefix+'aov-pp').textContent = fmtRp(m.ap);
-}
-
+// ── Chart helpers ─────────────────────────────────────────────────────────────
 function mkChart(id, type, datasets, opts) {
   if(charts[id]) charts[id].destroy();
-  charts[id] = new Chart(document.getElementById(id),{type,data:{labels:opts.labels,datasets},options:opts.cfg||{}});
+  charts[id]=new Chart(document.getElementById(id),{type,data:{labels:opts.labels,datasets},options:opts.cfg||{}});
 }
-
-const baseCfg = (labels, pctAxis=false, rpAxis=false) => ({
-  labels,
-  cfg:{
+function baseCfg(labels, pctAxis, rpAxis) {
+  return { labels, cfg:{
     responsive:true, maintainAspectRatio:false, animation:{duration:300},
     plugins:{legend:{display:false}},
     scales:{
       x:{ticks:{font:{size:11},maxRotation:45,autoSkip:labels.length>10},grid:{display:false}},
       y:{ticks:{font:{size:11},...(pctAxis?{callback:v=>v+'%'}:{}),...(rpAxis?{callback:v=>'Rp'+v+'rb'}:{})},grid:{color:'rgba(0,0,0,.06)'}}
     }
-  }
-});
+  }};
+}
 
-// ── Overview mode ─────────────────────────────────────────────────────────────
+// ── WoW fill ──────────────────────────────────────────────────────────────────
+function fillWoW(prefix, curr, prev) {
+  const m=mkMetrics(curr), mp=prev?mkMetrics(prev):null;
+  document.getElementById(prefix+'wow-cod').innerHTML  = mp?wowBadge(m.ct,mp.ct,true):'';
+  document.getElementById(prefix+'wow-rr').innerHTML   = mp?wowBadge(m.rrC,mp.rrC,false):'';
+  document.getElementById(prefix+'wow-rej').innerHTML  = mp?wowBadge(m.rejR,mp.rejR,false):'';
+  document.getElementById(prefix+'wow-conv').innerHTML = mp?wowBadge(m.convR,mp.convR,true):'';
+}
+
+// ── Metric cards fill ─────────────────────────────────────────────────────────
+function fillCards(prefix, d) {
+  const m=mkMetrics(d);
+  const diff=m.rrC-m.rrP;
+  document.getElementById(prefix+'cod-total').textContent=fmt(m.ct);
+  document.getElementById(prefix+'cod-total-sub').textContent='minggu '+(d.week||'—');
+  document.getElementById(prefix+'rr-cod').textContent=fmtPct(m.cr,m.ct);
+  const sub=document.getElementById(prefix+'rr-cod-sub');
+  sub.textContent=(diff>=0?'+':'')+diff.toFixed(1)+'% vs prepaid';
+  sub.className='mc-sub '+(diff>0?'up':'dn');
+  document.getElementById(prefix+'rej').textContent=fmtPct(m.crej,m.ct);
+  document.getElementById(prefix+'rej-sub').textContent=fmt(m.crej)+' paket ditolak';
+  document.getElementById(prefix+'conv').textContent=fmtPct(m.cs,m.ct);
+  document.getElementById(prefix+'conv-sub').textContent=fmt(m.cs)+' order sukses';
+  document.getElementById(prefix+'pp-total').textContent=fmt(m.pt);
+  document.getElementById(prefix+'pp-sub').textContent='minggu '+(d.week||'—');
+  document.getElementById(prefix+'rr-pp').textContent=fmtPct(m.pr,m.pt);
+  document.getElementById(prefix+'rr-pp-sub').textContent=fmt(m.pr)+' return';
+  document.getElementById(prefix+'aov-cod').textContent=fmtRp(m.ac);
+  document.getElementById(prefix+'aov-sub').textContent=m.ap?'vs '+fmtRp(m.ap)+' prepaid':'—';
+  if(document.getElementById(prefix+'aov-pp')) document.getElementById(prefix+'aov-pp').textContent=fmtRp(m.ap);
+}
+
+// ── Overview ──────────────────────────────────────────────────────────────────
 function renderOverview() {
   if(!allData.length){document.getElementById('no-data').style.display='block';return;}
   document.getElementById('no-data').style.display='none';
-  const last = allData[allData.length-1];
-  fillMetricCards('ov-', last, last.week||'—');
-  const m = mkMetrics(last);
-  const alertEl = document.getElementById('alert-area-ov');
-  if(m.rrC>15) alertEl.innerHTML='<div class="alert a-warn">Return rate COD '+m.rrC.toFixed(1)+'% — di atas threshold 15%.</div>';
-  else if(m.rrC>0) alertEl.innerHTML='<div class="alert a-ok">Return rate COD '+m.rrC.toFixed(1)+'% — dalam batas normal.</div>';
-  else alertEl.innerHTML='';
-  document.getElementById('ov-weeks').textContent = allData.length;
+  const last=allData[allData.length-1], prev=allData.length>1?allData[allData.length-2]:null;
+  fillCards('ov-',last);
+  fillWoW('ov-',last,prev);
+  document.getElementById('ov-weeks').textContent=allData.length;
+  document.getElementById('alert-area-ov').innerHTML=buildAlerts(mkMetrics(last));
+  document.getElementById('summary-ov').innerHTML=buildSummary(last,prev);
 
-  const labels = allData.map(d=>d.week);
-  const base   = baseCfg(labels);
-  const pctB   = baseCfg(labels,true);
-  const rpB    = baseCfg(labels,false,true);
-  const cv = d=>parseInt(d.cod_total)||0, pv=d=>parseInt(d.pp_total)||0;
-  const rrc=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
-  const rrp=d=>{const t=parseInt(d.pp_total)||0,r=parseInt(d.pp_return)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
-  const rjr=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_reject)||0;return t?parseFloat((r/t*100).toFixed(1)):0;};
-  const cor=d=>{const t=parseInt(d.cod_total)||0,s=parseInt(d.cod_success)||0;return t?parseFloat((s/t*100).toFixed(1)):0;};
+  const labels=allData.map(d=>d.week);
+  const base=baseCfg(labels), pctB=baseCfg(labels,true), rpB=baseCfg(labels,false,true);
+  const cv=d=>parseInt(d.cod_total)||0, pv=d=>parseInt(d.pp_total)||0;
+  const rrc=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_return)||0;return t?pct(r,t):0;};
+  const rrp=d=>{const t=parseInt(d.pp_total)||0,r=parseInt(d.pp_return)||0;return t?pct(r,t):0;};
+  const rjr=d=>{const t=parseInt(d.cod_total)||0,r=parseInt(d.cod_reject)||0;return t?pct(r,t):0;};
+  const cor=d=>{const t=parseInt(d.cod_total)||0,s=parseInt(d.cod_success)||0;return t?pct(s,t):0;};
+
   mkChart('ov-ch-vol','bar',[{label:'Prepaid',data:allData.map(pv),backgroundColor:'#1B3A6B'},{label:'COD',data:allData.map(cv),backgroundColor:'#C55A2B'}],base);
   mkChart('ov-ch-rr','line',[{label:'COD',data:allData.map(rrc),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4},{label:'Prepaid',data:allData.map(rrp),borderColor:'#1B3A6B',backgroundColor:'rgba(27,58,107,.06)',tension:.4,fill:true,pointRadius:4}],pctB);
   mkChart('ov-ch-rej','line',[{label:'Rej',data:allData.map(rjr),borderColor:'#C55A2B',backgroundColor:'rgba(197,90,43,.08)',tension:.4,fill:true,pointRadius:4}],pctB);
   mkChart('ov-ch-conv','line',[{label:'Conv',data:allData.map(cor),borderColor:'#3B6D11',backgroundColor:'rgba(59,109,17,.08)',tension:.4,fill:true,pointRadius:4}],pctB);
   mkChart('ov-ch-aov','bar',[{label:'COD',data:allData.map(d=>fmtRpK(d.aov_cod)),backgroundColor:'#C55A2B'},{label:'Prepaid',data:allData.map(d=>fmtRpK(d.aov_pp)),backgroundColor:'#1B3A6B'}],rpB);
+
+  // Category charts
+  const hasCat = allData.some(d=>d.category&&d.category.trim()!=='');
+  document.getElementById('no-cat').style.display = hasCat?'none':'block';
+  if(hasCat) {
+    const cats={};
+    allData.forEach(d=>{
+      const cat=(d.category||'Lainnya').trim();
+      if(!cats[cat]) cats[cat]={vol:0,ret:0};
+      cats[cat].vol += parseInt(d.cod_total)||0;
+      cats[cat].ret += parseInt(d.cod_return)||0;
+    });
+    const catLabels=Object.keys(cats);
+    const catRR=catLabels.map(c=>cats[c].vol>0?pct(cats[c].ret,cats[c].vol):0);
+    const catVol=catLabels.map(c=>cats[c].vol);
+    const colors=['#C55A2B','#1B3A6B','#3B6D11','#854F0B','#185FA5','#993556','#5F5E5A'];
+    const catCfg={responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{display:true,labels:{font:{size:11},boxWidth:10,padding:8}}},scales:{x:{ticks:{font:{size:10}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}}};
+    const pctCatCfg={...catCfg,scales:{x:catCfg.scales.x,y:{ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.06)'}}}};
+    mkChart('ov-ch-cat-rr','bar',[{label:'RR%',data:catRR,backgroundColor:colors.slice(0,catLabels.length)}],{labels:catLabels,cfg:pctCatCfg});
+    mkChart('ov-ch-cat-vol','bar',[{label:'Volume',data:catVol,backgroundColor:colors.slice(0,catLabels.length)}],{labels:catLabels,cfg:catCfg});
+  }
 }
 
-// ── Single mode ───────────────────────────────────────────────────────────────
+// ── Single ────────────────────────────────────────────────────────────────────
 function renderSingle() {
   if(!allData.length) return;
-  const idx = parseInt(document.getElementById('sel-single').value)||0;
-  const d   = allData[idx];
+  const idx=parseInt(document.getElementById('sel-single').value)||0;
+  const d=allData[idx], prev=idx>0?allData[idx-1]:null;
   if(!d) return;
-  const m = mkMetrics(d);
-  fillMetricCards('sg-', d, d.week);
-  const alertEl = document.getElementById('alert-area-sg');
-  if(m.rrC>15) alertEl.innerHTML='<div class="alert a-warn">Return rate COD '+m.rrC.toFixed(1)+'% — di atas threshold 15%.</div>';
-  else if(m.rrC>0) alertEl.innerHTML='<div class="alert a-ok">Return rate COD '+m.rrC.toFixed(1)+'% — dalam batas normal.</div>';
-  else alertEl.innerHTML='';
+  fillCards('sg-',d);
+  fillWoW('sg-',d,prev);
+  document.getElementById('alert-area-sg').innerHTML=buildAlerts(mkMetrics(d));
+  document.getElementById('summary-sg').innerHTML=buildSummary(d,prev);
 }
 
-// ── Compare mode ──────────────────────────────────────────────────────────────
+// ── Compare ───────────────────────────────────────────────────────────────────
 function renderCompare() {
   if(!allData.length) return;
-  const ia = parseInt(document.getElementById('sel-cmp-a').value)||0;
-  const ib = parseInt(document.getElementById('sel-cmp-b').value)||0;
-  const da  = allData[ia], db = allData[ib];
+  const ia=parseInt(document.getElementById('sel-cmp-a').value)||0;
+  const ib=parseInt(document.getElementById('sel-cmp-b').value)||0;
+  const da=allData[ia], db=allData[ib];
   if(!da||!db) return;
-  const ma = mkMetrics(da), mb = mkMetrics(db);
+  const ma=mkMetrics(da), mb=mkMetrics(db);
+  document.getElementById('cmp-tag-a').textContent=da.week;
+  document.getElementById('cmp-tag-b').textContent=db.week;
 
-  document.getElementById('cmp-tag-a').textContent = da.week;
-  document.getElementById('cmp-tag-b').textContent = db.week;
-
-  const metrics = [
-    {lbl:'COD total',    va:fmt(ma.ct),          vb:fmt(mb.ct),         diffRaw:mb.ct-ma.ct,         isUp:v=>v<0},
-    {lbl:'COD sukses',   va:fmt(ma.cs),           vb:fmt(mb.cs),         diffRaw:mb.cs-ma.cs,         isUp:v=>v>0},
-    {lbl:'Return COD',   va:fmt(ma.cr),           vb:fmt(mb.cr),         diffRaw:mb.cr-ma.cr,         isUp:v=>v<0},
-    {lbl:'RR COD',       va:ma.rrC.toFixed(1)+'%', vb:mb.rrC.toFixed(1)+'%', diffRaw:mb.rrC-ma.rrC,  isUp:v=>v<0},
-    {lbl:'Rejection',    va:ma.rejR.toFixed(1)+'%',vb:mb.rejR.toFixed(1)+'%',diffRaw:mb.rejR-ma.rejR, isUp:v=>v<0},
-    {lbl:'Conversion',   va:ma.convR.toFixed(1)+'%',vb:mb.convR.toFixed(1)+'%',diffRaw:mb.convR-ma.convR,isUp:v=>v>0},
-    {lbl:'Prepaid total',va:fmt(ma.pt),           vb:fmt(mb.pt),         diffRaw:mb.pt-ma.pt,         isUp:v=>v>0},
-    {lbl:'RR Prepaid',   va:ma.rrP.toFixed(1)+'%', vb:mb.rrP.toFixed(1)+'%', diffRaw:mb.rrP-ma.rrP,  isUp:v=>v<0},
-    {lbl:'AOV COD',      va:fmtRp(ma.ac),         vb:fmtRp(mb.ac),       diffRaw:mb.ac-ma.ac,         isUp:v=>v>0},
-    {lbl:'AOV Prepaid',  va:fmtRp(ma.ap),         vb:fmtRp(mb.ap),       diffRaw:mb.ap-ma.ap,         isUp:v=>v>0},
+  const metrics=[
+    {lbl:'COD total',    va:fmt(ma.ct),              vb:fmt(mb.ct),              diff:mb.ct-ma.ct,          isGoodUp:true},
+    {lbl:'COD sukses',   va:fmt(ma.cs),              vb:fmt(mb.cs),              diff:mb.cs-ma.cs,          isGoodUp:true},
+    {lbl:'Return COD',   va:fmt(ma.cr),              vb:fmt(mb.cr),              diff:mb.cr-ma.cr,          isGoodUp:false},
+    {lbl:'RR COD',       va:ma.rrC.toFixed(1)+'%',   vb:mb.rrC.toFixed(1)+'%',  diff:mb.rrC-ma.rrC,        isGoodUp:false},
+    {lbl:'Rejection',    va:ma.rejR.toFixed(1)+'%',  vb:mb.rejR.toFixed(1)+'%', diff:mb.rejR-ma.rejR,      isGoodUp:false},
+    {lbl:'Conversion',   va:ma.convR.toFixed(1)+'%', vb:mb.convR.toFixed(1)+'%',diff:mb.convR-ma.convR,    isGoodUp:true},
+    {lbl:'Prepaid total',va:fmt(ma.pt),              vb:fmt(mb.pt),              diff:mb.pt-ma.pt,          isGoodUp:true},
+    {lbl:'RR Prepaid',   va:ma.rrP.toFixed(1)+'%',   vb:mb.rrP.toFixed(1)+'%',  diff:mb.rrP-ma.rrP,        isGoodUp:false},
+    {lbl:'AOV COD',      va:fmtRp(ma.ac),            vb:fmtRp(mb.ac),            diff:mb.ac-ma.ac,          isGoodUp:true},
+    {lbl:'AOV Prepaid',  va:fmtRp(ma.ap),            vb:fmtRp(mb.ap),            diff:mb.ap-ma.ap,          isGoodUp:true},
   ];
 
-  function makeRows(side, diffDir) {
-    return metrics.map(r=>{
-      const isA = side==='a';
-      const val = isA ? r.va : r.vb;
-      const diff = r.diffRaw;
-      const sign = diff>0?'+':'';
-      const pctDiff = Math.abs(diff)<0.01?'0':sign+diff.toFixed(diff%1===0?0:1);
-      let cls='diff-neu';
-      if(Math.abs(diff)>0.01) cls = r.isUp(isA?-diff:diff)?'diff-dn':'diff-up';
-      const tag = Math.abs(diff)<0.01?'—':pctDiff;
-      return `<div class="cmp-row"><span class="cmp-lbl">${r.lbl}</span><span style="display:flex;align-items:center;gap:6px"><span class="cmp-val">${val}</span>${!isA?`<span class="cmp-diff ${cls}">${tag}</span>`:''}</span></div>`;
-    }).join('');
-  }
+  document.getElementById('cmp-rows-a').innerHTML = metrics.map(r=>
+    `<div class="cmp-row"><span class="cmp-lbl">${r.lbl}</span><span class="cmp-right"><span class="cmp-val">${r.va}</span></span></div>`
+  ).join('');
 
-  document.getElementById('cmp-rows-a').innerHTML = makeRows('a');
-  document.getElementById('cmp-rows-b').innerHTML = makeRows('b');
+  document.getElementById('cmp-rows-b').innerHTML = metrics.map(r=>{
+    const d=r.diff, sign=d>0?'+':'';
+    const none=Math.abs(d)<0.01;
+    let cls='diff-neu', tag='—';
+    if(!none){
+      tag=sign+(Math.abs(d)>=100?Math.round(d):(Math.abs(d)>=1?d.toFixed(1):d.toFixed(1)));
+      cls=(r.isGoodUp?d>0:d<0)?'diff-dn':'diff-up';
+    }
+    return `<div class="cmp-row"><span class="cmp-lbl">${r.lbl}</span><span class="cmp-right"><span class="cmp-val">${r.vb}</span><span class="cmp-diff ${cls}">${tag}</span></span></div>`;
+  }).join('');
 
-  const weeks = [da.week, db.week];
-  const barCfg = {
-    responsive:true,maintainAspectRatio:false,animation:{duration:300},
-    plugins:{legend:{display:true,labels:{font:{size:11},boxWidth:10,padding:10}}},
-    scales:{x:{ticks:{font:{size:11}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}}
-  };
-  const pctBarCfg = {...barCfg,scales:{...barCfg.scales,y:{ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.06)'}}}};
-  const rpBarCfg  = {...barCfg,scales:{...barCfg.scales,y:{ticks:{font:{size:11},callback:v=>'Rp'+v+'rb'},grid:{color:'rgba(0,0,0,.06)'}}}};
+  // Compare summary
+  const rrDiff=mb.rrC-ma.rrC, convDiff=mb.convR-ma.convR, volDiff=mb.ct-ma.ct;
+  let sumParts=[`<strong>${db.week}</strong> vs <strong>${da.week}</strong>:`];
+  if(volDiff!==0) sumParts.push(`volume COD ${volDiff>0?'naik':'turun'} ${Math.abs(volDiff).toLocaleString('id-ID')} order`);
+  if(Math.abs(rrDiff)>=0.5) sumParts.push(`return rate ${rrDiff>0?'memburuk':'membaik'} ${Math.abs(rrDiff).toFixed(1)}%`);
+  if(Math.abs(convDiff)>=0.5) sumParts.push(`conversion ${convDiff>0?'naik':'turun'} ${Math.abs(convDiff).toFixed(1)}%`);
+  document.getElementById('summary-cmp').innerHTML=`<div class="summary-box">${sumParts.join(', ')}.</div>`;
+
+  const weeks=[da.week,db.week];
+  const bCfg={responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{display:true,labels:{font:{size:11},boxWidth:10,padding:8}}},scales:{x:{ticks:{font:{size:11}},grid:{display:false}},y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}}};
+  const pBCfg={...bCfg,scales:{x:bCfg.scales.x,y:{ticks:{font:{size:11},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.06)'}}}};
+  const rBCfg={...bCfg,scales:{x:bCfg.scales.x,y:{ticks:{font:{size:11},callback:v=>'Rp'+v+'rb'},grid:{color:'rgba(0,0,0,.06)'}}}};
 
   const mk2=(id,ds,cfg)=>{if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),{type:'bar',data:{labels:weeks,datasets:ds},options:cfg});};
-
-  mk2('cmp-ch-vol',[
-    {label:'COD',    data:[ma.ct,mb.ct],backgroundColor:['rgba(197,90,43,.8)','rgba(197,90,43,.4)']},
-    {label:'Prepaid',data:[ma.pt,mb.pt],backgroundColor:['rgba(27,58,107,.8)','rgba(27,58,107,.4)']}
-  ],barCfg);
-  mk2('cmp-ch-rate',[
-    {label:'RR COD',   data:[parseFloat(ma.rrC.toFixed(1)),parseFloat(mb.rrC.toFixed(1))],backgroundColor:['rgba(197,90,43,.8)','rgba(197,90,43,.4)']},
-    {label:'Rejection',data:[parseFloat(ma.rejR.toFixed(1)),parseFloat(mb.rejR.toFixed(1))],backgroundColor:['rgba(27,58,107,.8)','rgba(27,58,107,.4)']}
-  ],pctBarCfg);
-  mk2('cmp-ch-conv',[
-    {label:'Conversion',data:[parseFloat(ma.convR.toFixed(1)),parseFloat(mb.convR.toFixed(1))],backgroundColor:['rgba(59,109,17,.8)','rgba(59,109,17,.4)']}
-  ],pctBarCfg);
-  mk2('cmp-ch-aov',[
-    {label:'AOV COD',    data:[fmtRpK(ma.ac),fmtRpK(mb.ac)],backgroundColor:['rgba(197,90,43,.8)','rgba(197,90,43,.4)']},
-    {label:'AOV Prepaid',data:[fmtRpK(ma.ap),fmtRpK(mb.ap)],backgroundColor:['rgba(27,58,107,.8)','rgba(27,58,107,.4)']}
-  ],rpBarCfg);
+  mk2('cmp-ch-vol',[{label:'COD',data:[ma.ct,mb.ct],backgroundColor:['rgba(197,90,43,.85)','rgba(197,90,43,.4)']},{label:'Prepaid',data:[ma.pt,mb.pt],backgroundColor:['rgba(27,58,107,.85)','rgba(27,58,107,.4)']}],bCfg);
+  mk2('cmp-ch-rate',[{label:'RR COD',data:[ma.rrC,mb.rrC],backgroundColor:['rgba(197,90,43,.85)','rgba(197,90,43,.4)']},{label:'Rejection',data:[ma.rejR,mb.rejR],backgroundColor:['rgba(27,58,107,.85)','rgba(27,58,107,.4)']}],pBCfg);
+  mk2('cmp-ch-conv',[{label:'Conversion',data:[ma.convR,mb.convR],backgroundColor:['rgba(59,109,17,.85)','rgba(59,109,17,.4)']}],pBCfg);
+  mk2('cmp-ch-aov',[{label:'AOV COD',data:[fmtRpK(ma.ac),fmtRpK(mb.ac)],backgroundColor:['rgba(197,90,43,.85)','rgba(197,90,43,.4)']},{label:'AOV PP',data:[fmtRpK(ma.ap),fmtRpK(mb.ap)],backgroundColor:['rgba(27,58,107,.85)','rgba(27,58,107,.4)']}],rBCfg);
 }
 
 // ── Table ─────────────────────────────────────────────────────────────────────
@@ -675,8 +849,12 @@ function renderTable() {
     const ct=parseInt(d.cod_total)||0,cr=parseInt(d.cod_return)||0,crej=parseInt(d.cod_reject)||0;
     const pt=parseInt(d.pp_total)||0,pr=parseInt(d.pp_return)||0;
     const rrC=ct>0?cr/ct*100:null,rejR=ct>0?crej/ct*100:null,rrP=pt>0?pr/pt*100:null;
+    const dateRange = (d.date_start&&d.date_end)
+      ? `<div class="date-range">${d.date_start} – ${d.date_end}</div>`
+      : (d.date_start ? `<div class="date-range">${d.date_start}</div>` : '');
     tbody.innerHTML+=`<tr>
       <td><span class="badge b-navy">${d.week}</span></td>
+      <td>${dateRange||'<span style="color:var(--t3);font-size:11px">—</span>'}</td>
       <td>${fmt(ct)}</td><td>${fmt(d.cod_success)}</td><td>${fmt(cr)}</td>
       <td><span class="badge ${bdgCls(rrC)}">${rrC!==null?rrC.toFixed(1)+'%':'—'}</span></td>
       <td>${fmt(crej)}</td><td>${rejR!==null?rejR.toFixed(1)+'%':'—'}</td>
@@ -687,6 +865,33 @@ function renderTable() {
   });
 }
 
+// ── Export PNG ────────────────────────────────────────────────────────────────
+function exportChart(canvasId, filename) {
+  const canvas=document.getElementById(canvasId);
+  if(!canvas) return;
+  const a=document.createElement('a');
+  a.href=canvas.toDataURL('image/png');
+  a.download=filename+'_'+new Date().toISOString().slice(0,10)+'.png';
+  a.click();
+}
+
+// ── Export CSV ────────────────────────────────────────────────────────────────
+function exportCSV() {
+  if(!allData.length) return;
+  const headers=['week','date_start','date_end','cod_total','cod_success','cod_return','cod_reject','pp_total','pp_return','aov_cod','aov_pp','rr_cod','rr_pp','rejection_rate','conversion_rate'];
+  const rows=allData.map(d=>{
+    const m=mkMetrics(d);
+    return [d.week,d.date_start||'',d.date_end||'',m.ct,m.cs,m.cr,m.crej,m.pt,m.pr,m.ac,m.ap,m.rrC.toFixed(1),m.rrP.toFixed(1),m.rejR.toFixed(1),m.convR.toFixed(1)].join(',');
+  });
+  const csv=[headers.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='cod_monitor_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+loadThresholds();
 fetchData();
 setInterval(fetchData, 5*60*1000);
 </script>
