@@ -191,7 +191,7 @@ tr:hover td{background:#FAFBFD}
       <button class="refresh-btn" onclick="fetchData()">
         <span class="spin" id="spin-icon">↻</span> Refresh
       </button>
-      <p>Auto-refresh tiap 5 menit.</p>
+      <p>Auto-refresh every 5 minutes.</p>
     </div>
   </div>
 
@@ -236,9 +236,9 @@ tr:hover td{background:#FAFBFD}
 
         <!-- Mode switcher -->
         <div class="mode-bar">
-          <button class="mode-btn active" onclick="setMode('overview')">Semua minggu</button>
-          <button class="mode-btn" onclick="setMode('single')">Pilih minggu</button>
-          <button class="mode-btn" onclick="setMode('compare')">Bandingkan</button>
+          <button class="mode-btn active" onclick="setMode('overview')">ALL WEEK</button>
+          <button class="mode-btn" onclick="setMode('single')">Choose Week</button>
+          <button class="mode-btn" onclick="setMode('compare')">Week Comparison</button>
         </div>
 
         <!-- ── OVERVIEW ── -->
@@ -298,7 +298,7 @@ tr:hover td{background:#FAFBFD}
           <div class="card">
             <div class="chart-row">
               <div><div class="ct">Volume order COD vs Prepaid</div><div class="cs">Number of orders per week</div></div>
-              <button class="chart-export" onclick="exportChart('ov-ch-vol','volume_cod_prepaid')">Simpan PNG</button>
+              <button class="chart-export" onclick="exportChart('ov-ch-vol','volume_cod_prepaid')">Save PNG</button>
             </div>
             <div class="legend">
               <div class="leg"><span class="ldot" style="background:#1B3A6B"></span>Prepaid</div>
@@ -310,7 +310,7 @@ tr:hover td{background:#FAFBFD}
             <div class="card">
               <div class="chart-row">
                 <div><div class="ct">Return rate (%)</div><div class="cs">COD vs Prepaid per week</div></div>
-                <button class="chart-export" onclick="exportChart('ov-ch-rr','return_rate')">Simpan PNG</button>
+                <button class="chart-export" onclick="exportChart('ov-ch-rr','return_rate')">Save PNG</button>
               </div>
               <div class="legend">
                 <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
@@ -331,7 +331,7 @@ tr:hover td{background:#FAFBFD}
             <div class="card">
               <div class="chart-row">
                 <div><div class="ct">Conversion rate COD (%)</div><div class="cs">Order successfully received</div></div>
-                <button class="chart-export" onclick="exportChart('ov-ch-conv','conversion_rate')">Simpan PNG</button>
+                <button class="chart-export" onclick="exportChart('ov-ch-conv','conversion_rate')">Save PNG</button>
               </div>
               <div class="legend"><div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div></div>
               <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-conv"></canvas></div>
@@ -339,7 +339,7 @@ tr:hover td{background:#FAFBFD}
             <div class="card">
               <div class="chart-row">
                 <div><div class="ct">AOV comparison (Rp ribu)</div><div class="cs">Average order value COD vs Prepaid</div></div>
-                <button class="chart-export" onclick="exportChart('ov-ch-aov','aov_comparison')">Simpan PNG</button>
+                <button class="chart-export" onclick="exportChart('ov-ch-aov','aov_comparison')">Save PNG</button>
               </div>
               <div class="legend">
                 <div class="leg"><span class="ldot" style="background:#C55A2B"></span>COD</div>
@@ -350,20 +350,17 @@ tr:hover td{background:#FAFBFD}
           </div>
 
           <!-- Kategori produk -->
-          <div class="sec">Performa per kategori produk</div>
+          <div class="sec">Performance per product category</div>
           <div id="cat-section">
             <div class="cat-grid">
               <div class="card">
-                <div class="ct" style="margin-bottom:12px">Return rate per kategori (%)</div>
+                <div class="ct" style="margin-bottom:12px">Return rate per category (%)</div>
                 <div style="position:relative;width:100%;height:220px"><canvas id="ov-ch-cat-rr"></canvas></div>
               </div>
               <div class="card">
-                <div class="ct" style="margin-bottom:12px">Volume COD per kategori</div>
+                <div class="ct" style="margin-bottom:12px">Volume COD per category</div>
                 <div style="position:relative;width:100%;height:220px"><canvas id="ov-ch-cat-vol"></canvas></div>
               </div>
-            </div>
-            <div id="no-cat" class="empty" style="display:none;padding:1rem">
-              Tambah kolom <code style="font-family:var(--fm);font-size:11px">category</code> di Google Sheets untuk melihat breakdown per kategori.
             </div>
           </div>
         </div>
@@ -371,7 +368,7 @@ tr:hover td{background:#FAFBFD}
         <!-- ── SINGLE ── -->
         <div id="mode-single" class="mode-panel">
           <div class="week-controls">
-            <label>Pilih minggu:</label>
+            <label>Choose Week:</label>
             <select class="week-select" id="sel-single" onchange="renderSingle()"></select>
           </div>
           <div id="summary-sg"></div>
@@ -429,51 +426,51 @@ tr:hover td{background:#FAFBFD}
         <!-- ── COMPARE ── -->
         <div id="mode-compare" class="mode-panel">
           <div class="week-controls">
-            <label>Minggu A:</label>
+            <label>Week A:</label>
             <select class="week-select" id="sel-cmp-a" onchange="renderCompare()"></select>
             <span class="vs-label">vs</span>
-            <label>Minggu B:</label>
+            <label>Week B:</label>
             <select class="week-select" id="sel-cmp-b" onchange="renderCompare()"></select>
           </div>
           <div id="summary-cmp"></div>
           <div class="compare-grid">
             <div class="cmp-col col-a">
-              <div class="cmp-header"><span class="cmp-week-tag tag-a" id="cmp-tag-a">—</span>Minggu A</div>
+              <div class="cmp-header"><span class="cmp-week-tag tag-a" id="cmp-tag-a">—</span>Week A</div>
               <div id="cmp-rows-a"></div>
             </div>
             <div class="cmp-col col-b">
-              <div class="cmp-header"><span class="cmp-week-tag tag-b" id="cmp-tag-b">—</span>Minggu B (vs A)</div>
+              <div class="cmp-header"><span class="cmp-week-tag tag-b" id="cmp-tag-b">—</span>Week B (vs A)</div>
               <div id="cmp-rows-b"></div>
             </div>
           </div>
-          <div class="sec">Perbandingan visual</div>
+          <div class="sec">Visual Comparison</div>
           <div class="cmp-chart-grid">
             <div class="card">
-              <div class="chart-row"><div class="ct">Volume order</div><button class="chart-export" onclick="exportChart('cmp-ch-vol','compare_volume')">Simpan PNG</button></div>
+              <div class="chart-row"><div class="ct">Volume order</div><button class="chart-export" onclick="exportChart('cmp-ch-vol','compare_volume')">Save PNG</button></div>
               <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-vol"></canvas></div>
             </div>
             <div class="card">
-              <div class="chart-row"><div class="ct">Return & rejection rate (%)</div><button class="chart-export" onclick="exportChart('cmp-ch-rate','compare_rates')">Simpan PNG</button></div>
+              <div class="chart-row"><div class="ct">Return & rejection rate (%)</div><button class="chart-export" onclick="exportChart('cmp-ch-rate','compare_rates')">Save PNG</button></div>
               <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-rate"></canvas></div>
             </div>
             <div class="card">
-              <div class="chart-row"><div class="ct">Conversion rate (%)</div><button class="chart-export" onclick="exportChart('cmp-ch-conv','compare_conv')">Simpan PNG</button></div>
+              <div class="chart-row"><div class="ct">Conversion rate (%)</div><button class="chart-export" onclick="exportChart('cmp-ch-conv','compare_conv')">Save PNG</button></div>
               <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-conv"></canvas></div>
             </div>
             <div class="card">
-              <div class="chart-row"><div class="ct">AOV (Rp ribu)</div><button class="chart-export" onclick="exportChart('cmp-ch-aov','compare_aov')">Simpan PNG</button></div>
+              <div class="chart-row"><div class="ct">AOV (Rp ribu)</div><button class="chart-export" onclick="exportChart('cmp-ch-aov','compare_aov')">Save PNG</button></div>
               <div style="position:relative;width:100%;height:200px;margin-top:12px"><canvas id="cmp-ch-aov"></canvas></div>
             </div>
           </div>
         </div>
 
-        <div id="no-data" class="empty" style="display:none">Belum ada data di spreadsheet.</div>
+        <div id="no-data" class="empty" style="display:none">There is no data in the spreadsheet yet.</div>
       </div>
 
       <!-- TABEL -->
       <div id="page-tabel" class="page">
         <div class="tbl-top">
-          <div class="sec" style="margin:0">Semua data mingguan</div>
+          <div class="sec" style="margin:0">All weekly data</div>
           <button class="export-btn" onclick="exportCSV()">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export CSV
@@ -484,17 +481,17 @@ tr:hover td{background:#FAFBFD}
             <table id="main-table">
               <thead>
                 <tr>
-                  <th>Minggu</th>
-                  <th>Tanggal</th>
-                  <th>COD total</th><th>Sukses</th><th>Return</th>
+                  <th>Week</th>
+                  <th>Date</th>
+                  <th>COD total</th><th>Success</th><th>Return</th>
                   <th>RR COD</th><th>Rejection</th><th>Rej%</th>
-                  <th>Prepaid</th><th>Ret PP</th><th>RR PP</th>
+                  <th>Prepaid</th><th>Return PP</th><th>RR PP</th>
                   <th>AOV COD</th><th>AOV PP</th>
                 </tr>
               </thead>
               <tbody id="tbl-body"></tbody>
             </table>
-            <div id="tbl-empty" class="empty" style="display:none">Belum ada data.</div>
+            <div id="tbl-empty" class="empty" style="display:none">There is no data in the spreadsheet yet.</div>
           </div>
         </div>
       </div>
@@ -549,11 +546,11 @@ function mkMetrics(d) {
 function wowBadge(curr, prev, isGoodUp) {
   if(prev===undefined||prev===null) return '';
   const diff = curr - prev;
-  if(Math.abs(diff)<0.01) return '<span class="wow-badge wow-neu">— vs minggu lalu</span>';
+  if(Math.abs(diff)<0.01) return '<span class="wow-badge wow-neu">— vs last week</span>';
   const sign = diff>0?'+':'';
   const good = isGoodUp ? diff>0 : diff<0;
   const cls  = good ? 'wow-dn' : 'wow-up';
-  return `<span class="wow-badge ${cls}">${sign}${Math.abs(diff)>=10?Math.round(diff):diff.toFixed(1)} vs minggu lalu</span>`;
+  return `<span class="wow-badge ${cls}">${sign}${Math.abs(diff)>=10?Math.round(diff):diff.toFixed(1)} vs last week</span>`;
 }
 
 function buildAlerts(m) {
@@ -561,7 +558,7 @@ function buildAlerts(m) {
   if(m.rrC > thresholds.rr)   alerts.push(`<div class="alert a-warn">Return rate COD <strong>${m.rrC.toFixed(1)}%</strong> — melewati threshold ${thresholds.rr}%.</div>`);
   if(m.rejR > thresholds.rej) alerts.push(`<div class="alert a-warn">Rejection rate <strong>${m.rejR.toFixed(1)}%</strong> — melewati threshold ${thresholds.rej}%.</div>`);
   if(m.convR < thresholds.conv && m.ct>0) alerts.push(`<div class="alert a-warn">Conversion rate <strong>${m.convR.toFixed(1)}%</strong> — di bawah minimum ${thresholds.conv}%.</div>`);
-  if(!alerts.length && m.ct>0) alerts.push(`<div class="alert a-ok">Semua metrik COD dalam batas normal minggu ini.</div>`);
+  if(!alerts.length && m.ct>0) alerts.push(`<div class="alert a-ok">All COD metrics were within normal limits this week.</div>`);
   return alerts.join('');
 }
 
@@ -569,7 +566,7 @@ function buildSummary(curr, prev) {
   const m = mkMetrics(curr);
   if(!m.ct) return '';
   const parts = [];
-  const weekLabel = curr.week || 'Minggu ini';
+  const weekLabel = curr.week || 'This week';
 
   parts.push(`<strong>${weekLabel}</strong>: ${fmt(m.ct)} order COD masuk`);
 
