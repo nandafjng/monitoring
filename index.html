@@ -568,7 +568,7 @@ function buildSummary(curr, prev) {
   const parts = [];
   const weekLabel = curr.week || 'This week';
 
-  parts.push(`<strong>${weekLabel}</strong>: ${fmt(m.ct)} order COD masuk`);
+  parts.push(`<strong> week${weekLabel}</strong>: ${fmt(m.ct)} order COD masuk`);
 
   if(prev) {
     const mp = mkMetrics(prev);
