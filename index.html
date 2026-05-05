@@ -245,7 +245,7 @@ tr:hover td{background:#FAFBFD}
         <div id="mode-overview" class="mode-panel active">
           <div id="summary-ov"></div>
           <div id="alert-area-ov"></div>
-          <div class="sec">Ringkasan minggu terakhir</div>
+          <div class="sec">Summary of the last week</div>
           <div class="mg">
             <div class="mc mc-accent">
               <div class="mc-lbl">Total order COD</div>
@@ -289,7 +289,7 @@ tr:hover td{background:#FAFBFD}
               <div class="mc-sub" id="ov-aov-sub">—</div>
             </div>
             <div class="mc">
-              <div class="mc-lbl">Minggu direkam</div>
+              <div class="mc-lbl">Week recorded</div>
               <div class="mc-val" id="ov-weeks">—</div>
               <div class="mc-sub">total entri</div>
             </div>
@@ -297,7 +297,7 @@ tr:hover td{background:#FAFBFD}
           <div class="sec">Tren mingguan</div>
           <div class="card">
             <div class="chart-row">
-              <div><div class="ct">Volume order COD vs Prepaid</div><div class="cs">Jumlah order per minggu</div></div>
+              <div><div class="ct">Volume order COD vs Prepaid</div><div class="cs">Number of orders per week</div></div>
               <button class="chart-export" onclick="exportChart('ov-ch-vol','volume_cod_prepaid')">Simpan PNG</button>
             </div>
             <div class="legend">
@@ -309,7 +309,7 @@ tr:hover td{background:#FAFBFD}
           <div class="chart-grid">
             <div class="card">
               <div class="chart-row">
-                <div><div class="ct">Return rate (%)</div><div class="cs">COD vs Prepaid per minggu</div></div>
+                <div><div class="ct">Return rate (%)</div><div class="cs">COD vs Prepaid per week</div></div>
                 <button class="chart-export" onclick="exportChart('ov-ch-rr','return_rate')">Simpan PNG</button>
               </div>
               <div class="legend">
@@ -320,8 +320,8 @@ tr:hover td{background:#FAFBFD}
             </div>
             <div class="card">
               <div class="chart-row">
-                <div><div class="ct">Rejection rate COD (%)</div><div class="cs">Paket ditolak saat pengiriman</div></div>
-                <button class="chart-export" onclick="exportChart('ov-ch-rej','rejection_rate')">Simpan PNG</button>
+                <div><div class="ct">Rejection rate COD (%)</div><div class="cs">Package rejected during delivery</div></div>
+                <button class="chart-export" onclick="exportChart('ov-ch-rej','rejection_rate')">Save PNG</button>
               </div>
               <div class="legend"><div class="leg"><span class="ldot" style="background:#C55A2B"></span>Rejection</div></div>
               <div style="position:relative;width:100%;height:190px"><canvas id="ov-ch-rej"></canvas></div>
@@ -330,7 +330,7 @@ tr:hover td{background:#FAFBFD}
           <div class="chart-grid">
             <div class="card">
               <div class="chart-row">
-                <div><div class="ct">Conversion rate COD (%)</div><div class="cs">Order yang berhasil diterima</div></div>
+                <div><div class="ct">Conversion rate COD (%)</div><div class="cs">Order successfully received</div></div>
                 <button class="chart-export" onclick="exportChart('ov-ch-conv','conversion_rate')">Simpan PNG</button>
               </div>
               <div class="legend"><div class="leg"><span class="ldot" style="background:#3B6D11"></span>Conversion</div></div>
@@ -338,7 +338,7 @@ tr:hover td{background:#FAFBFD}
             </div>
             <div class="card">
               <div class="chart-row">
-                <div><div class="ct">AOV perbandingan (Rp ribu)</div><div class="cs">Average order value COD vs Prepaid</div></div>
+                <div><div class="ct">AOV comparison (Rp ribu)</div><div class="cs">Average order value COD vs Prepaid</div></div>
                 <button class="chart-export" onclick="exportChart('ov-ch-aov','aov_comparison')">Simpan PNG</button>
               </div>
               <div class="legend">
